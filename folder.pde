@@ -5,7 +5,7 @@ class Folder {
 
     Folder(String name) {
         this.name = name;
-        this.files = new ArrayList<File>();
+        this.files = new ArrayList<MediaFile>();
         this.folders = new ArrayList<Folder>();
     }
 }
