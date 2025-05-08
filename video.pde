@@ -6,7 +6,5 @@ class Video extends MediaFile {
         super(n,  d,  f);
         this.volume = 100;
         this.paused = True;
-    }
-
-    
+    } 
 }
