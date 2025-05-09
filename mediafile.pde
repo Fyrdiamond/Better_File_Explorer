@@ -21,7 +21,7 @@ class MediaFile{
     MediaFile(String n, Date d, FileType t){
         this.name = n;
         this.date = d;
-
+        this.fileType = t;
     }
 
     //METHODS
