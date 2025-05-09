@@ -30,6 +30,4 @@ void setup() {
     importFile();
 }
 
-void setup() {}
-
 void draw() {}
