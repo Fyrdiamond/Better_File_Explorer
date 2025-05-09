@@ -8,4 +8,12 @@ class Folder {
         this.files = new ArrayList<MediaFile>();
         this.folders = new ArrayList<Folder>();
     }
+
+    void addFile(MediaFile file) {
+        this.files.add(file);
+    }
+
+    void removeFile(MediaFile file) {
+        this.files.remove(file);
+    }
 }
