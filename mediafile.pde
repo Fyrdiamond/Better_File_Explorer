@@ -1,4 +1,4 @@
-enum FileType() {
+enum FileType {
     JPG,
     PNG,
     TIFF,
