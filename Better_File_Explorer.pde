@@ -12,7 +12,8 @@ void FileSelected(File ChosenFile){ // function that runs once the user selects 
         println(ChosenFile.getAbsolutePath());
 
         PImage AttemptImg = loadImage(ChosenFile.getAbsolutePath());
-
+        String fileType = ChosenFile.getAbsolutePath().substring(ChosenFile.getAbsolutePath().lastIndexOf(".") + 1);
+        println(fileType);
         if (AttemptImg != null){
             println("Success!");
         } else {
@@ -30,6 +31,4 @@ void setup() {
     importFile();
 }
 
-void setup() {}
-
-void draw() {}
+void draw(){}
