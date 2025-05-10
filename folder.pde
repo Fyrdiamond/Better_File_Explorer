@@ -36,4 +36,19 @@ class Folder {
     void removeFile(MediaFile file) {
         this.files.remove(file);
     }
+
+    void addFolder(String name) {
+        this.folders.add(new Folder(name));
+        println("Created new folder:", name);
+    }
+
+    void removeFolder(String name) {
+        for (Folder folder : this.folders) {
+            if (folder.getName().equals(name)) {
+                this.folders.remove(folder);
+                println("Removed folder:", name);
+                break;
+            }
+        }
+    }
 }
