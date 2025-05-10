@@ -15,7 +15,7 @@ The *Better File Explorer* will take your online organization to the next level.
 
 Will let you add any file you want\* to the Better File Explorer, with an easy to use file viewing system.
 
-\* File must end in .jpg, .tiff, .bmp, .png, .wbmp, .gif, .mp4, .move, .mp3, or .wav
+\* File must end in .jpg, .tiff, .bmp, .png, .wbmp, .gif, .mp4, .mov, .mp3, or .wav
 
 ### Folder Management System
 
