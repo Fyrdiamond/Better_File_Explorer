@@ -80,6 +80,8 @@ class Folder {
 
     boolean fileComesBefore(MediaFile file1, MediaFile file2, FileSortKey key) {
         switch (key) {
+            case NAME:
+                return file1.getName().compareTo(file2.getName()) == -1;
             case DATE:
                 return file1.getDate() < file2.getDate();
             default:
