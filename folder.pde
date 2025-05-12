@@ -49,7 +49,7 @@ class Folder {
         int i = 0;
         for (MediaFile file : files) {
             if (i++ < halfsize) {
-                list1.add(files);
+                list1.add(file);
             } else {
                 list2.add(file);
             }
@@ -59,20 +59,26 @@ class Folder {
         i = list1.size();
         int j = list2.size();
         while (i > 0 & j > 0) {
-            if (fileComesBefore(list1[0], list2[0], key)) {
-                result.add(list1.pop(0));
+            if (fileComesBefore(list1.get(0), list2.get(0), key)) {
+                result.add(list1.get(0));
+                list1.remove(0);
                 i--;
             } else {
-                result.add(list2.pop(0));
+                result.add(list2.get(0));
+                list2.remove(0);
                 j--;
             }
         }
         while (i > 0) {
-            result.add(list1.pop(0));
+            for (MediaFile file : list1) {
+                result.add(file);
+            }
             i--;
         }
         while (j > 0) {
-            result.add(list2.pop(0));
+            for (MediaFile file : list2) {
+                result.add(file);
+            }
             j--;
         }
         return result;
@@ -83,7 +89,7 @@ class Folder {
             case NAME:
                 return file1.getName().compareTo(file2.getName()) == -1;
             case DATE:
-                return file1.getDate() < file2.getDate();
+                return file1.getDate().compareTo(file2.getDate()) == -1;
             default:
                 throw new UnsupportedOperationException();
         }
