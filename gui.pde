@@ -16,7 +16,7 @@
 
 public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFileButton:738052:
   importFile();
-  text()
+  //text();
 } //_CODE_:importFileButton:738052:
 
 

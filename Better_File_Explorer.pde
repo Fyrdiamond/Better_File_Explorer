@@ -12,7 +12,7 @@ void FileSelected(File ChosenFile){ // function that runs once the user selects 
         println(ChosenFile.getAbsolutePath());
 
         PImage AttemptImg = loadImage(ChosenFile.getAbsolutePath());
-        String fileType = ChosenFile.getAbsolutePath().substring(ChosenFile.getAbsolutePath().lastIndexOf(".") + 1);
+        String fileType = ChosenFile.getAbsolutePath().substring(ChosenFile.getAbsolutePath().lastIndexOf(".") + 1).toUpperCase();
         println(fileType);
         if (AttemptImg != null){
             println("Success!");
