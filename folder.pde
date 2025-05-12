@@ -34,6 +34,16 @@ class Folder {
         return (this.files.size() + this.folders.size()) == 0;
     }
 
+    ArrayList<MediaFile> getRecursiveSortedFiles(FileSortKey key) {
+        ArrayList<MediaFile> result = new ArrayList<MediaFile>();
+        ArrayList<MediaFile>[] childResults = new ArrayList<MediaFile>()[this.folders.size() + 1];
+        int i = 0;
+        for (Folder folder : this.folders) {
+            result = mergeFiles(folder.getRecursiveSortedFiles(key), result, key);
+        }
+        return mergeFiles(result, this.getSortedFiles);
+    }
+
     ArrayList<MediaFile> getSortedFiles(FileSortKey key) {
         return sortFiles(this.files, key);
     }
@@ -55,6 +65,10 @@ class Folder {
             }
         }
 
+        return mergeFiles(list1, list2);
+    }
+
+    ArrayList<MediaFile> mergeFiles(ArrayList<MediaFile> list1, ArrayList<MediaFile> list2, FileSortKey key) {
         ArrayList<MediaFile> result = new ArrayList<MediaFile>();
         i = list1.size();
         int j = list2.size();
@@ -81,6 +95,7 @@ class Folder {
             }
             j--;
         }
+
         return result;
     }
 
