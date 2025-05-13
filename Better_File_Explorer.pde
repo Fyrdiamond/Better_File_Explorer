@@ -3,6 +3,8 @@ import processing.video.*;
 
 ArrayList<MediaFile> mediaFileList = new ArrayList<MediaFile>();
 
+Stack<Folder> folderPath = new Stack<Folder>();
+
 void importFile(){ // Function to import file from the user's device.
     selectInput("Select a file to process:", "FileSelected");
 }
@@ -55,6 +57,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
 void setup() {
     size(500,500);
     background(0);
+    folderPath.push(new Folder("Library"));
     importFile();
 }
 
