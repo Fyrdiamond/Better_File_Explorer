@@ -1,4 +1,6 @@
 enum FileType {
+    JPEG,
+    TIF,
     JPG,
     PNG,
     TIFF,
@@ -10,6 +12,10 @@ enum FileType {
     MP3,
     WAV;
 }
+
+String [] Photos = {"JPG", "PNG", "TIFF", "BMP", "WBMP", "GIF"};
+String [] Videos = {"MP4", "MOV"};
+String [] Audios = {"MP3", "WAV"};
 
 class MediaFile{
     //FEILDS
