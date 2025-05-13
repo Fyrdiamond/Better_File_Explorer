@@ -9,7 +9,6 @@ void importFile(){ // Function to import file from the user's device.
 
 void FileSelected(File chosenFile){ // function that runs once the user selects a file.
     if (chosenFile != null){
-        
         // Finding the string of the chosen file location.
         String path = chosenFile.getAbsolutePath();
         String FileName = chosenFile.getName();
@@ -17,17 +16,39 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         // Finding the last Modified Date
         Date fileModifiedDate = new Date(chosenFile.lastModified());
 
-        
         // Converting the string into an enum from our list of file format enums.
-        FileType MediaFileType = FileType.valueOf(path.substring(path.lastIndexOf(".") + 1).toUpperCase());
+        String fileTypeString= path.substring(path.lastIndexOf(".") + 1).toUpperCase();
+        FileType MediaFileType = FileType.valueOf(fileTypeString);
 
         // Test print statements
         println(fileModifiedDate);
         println(chosenFile.getName());
-        println("the file type is:", MediaFileType); 
-        
+        println("the file type is:", MediaFileType);
+        println (MediaFileType.valueOf(fileTypeString));
         // Creating a file from the MediaFile class
-        MediaFile newFile = new MediaFile(FileName, fileModifiedDate, MediaFileType);
+        for (String fileT : Photos){
+            if (fileTypeString.equals(fileT)){
+                PImage file = loadImage(path);
+                Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, file);
+                print("this is a photo");
+            }
+        }
+
+        for (String fileT : Videos){
+            if (fileTypeString.equals(fileT)){
+                Movie file = new Movie (this, path);
+                Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, file);
+                print("this is a video");
+            }
+        }
+
+        for (String fileT : Audios){
+            if (fileTypeString.equals(fileT)){
+                SoundFile file = new SoundFile(this, path);
+                Audio newFile = new Audio(FileName, fileModifiedDate, MediaFileType, file);
+                print("this is a audio");
+            }
+        }
     }
 }
 
