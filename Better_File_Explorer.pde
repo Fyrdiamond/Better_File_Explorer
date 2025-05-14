@@ -33,7 +33,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         for (String fileT : Photos){
             if (fileTypeString.equals(fileT)){
                 PImage file = loadImage(path);
-                Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, path);
+                Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, file);
                 print("this is a photo");
                 newFile.display();
             }
@@ -42,7 +42,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         for (String fileT : Videos){
             if (fileTypeString.equals(fileT)){
                 Movie file = new Movie (this, path);
-                Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, path);
+                Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, file);
                 print("this is a video");
             }
         }
