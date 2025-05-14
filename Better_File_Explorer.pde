@@ -1,5 +1,7 @@
 import java.util.Date;
 import processing.video.*;
+import processing.sound.*;
+import g4p_controls.*;
 
 ArrayList<MediaFile> mediaFileList = new ArrayList<MediaFile>();
 
@@ -29,15 +31,16 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         for (String fileT : Photos){
             if (fileTypeString.equals(fileT)){
                 PImage file = loadImage(path);
-                Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, file);
+                Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, path);
                 print("this is a photo");
+                newFile.display();
             }
         }
 
         for (String fileT : Videos){
             if (fileTypeString.equals(fileT)){
                 Movie file = new Movie (this, path);
-                Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, file);
+                Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, path);
                 print("this is a video");
             }
         }
@@ -53,7 +56,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
 }
 
 void setup() {
-    size(500,500);
+    size(1000, 700);
     background(0);
     importFile();
 }
