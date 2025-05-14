@@ -5,6 +5,8 @@ import g4p_controls.*;
 
 ArrayList<MediaFile> mediaFileList = new ArrayList<MediaFile>();
 
+Stack<Folder> folderPath = new Stack<Folder>();
+
 void importFile(){ // Function to import file from the user's device.
     selectInput("Select a file to process:", "FileSelected");
 }
@@ -58,6 +60,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
 void setup() {
     size(1000, 700);
     background(0);
+    folderPath.push(new Folder("Library"));
     importFile();
 }
 
