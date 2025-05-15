@@ -3,9 +3,12 @@ import processing.video.*;
 import processing.sound.*;
 import g4p_controls.*;
 
-ArrayList<MediaFile> mediaFileList = new ArrayList<MediaFile>();
-
 Stack<Folder> folderPath = new Stack<Folder>();
+
+Folder rootFolder = new Folder("Library");
+
+int buttonHeight = 30;
+int buttonWidth = 80;
 
 void importFile(){ // Function to import file from the user's device.
     selectInput("Select a file to process:", "FileSelected");
@@ -57,11 +60,18 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
     }
 }
 
+void settings() {
+    int maxW = displayWidth * 2 / 3;
+    int maxH = displayHeight * 2 / 3;
+    int w = maxW;
+    int h = maxH / buttonHeight * buttonHeight;
+    size(w, h);
+}
+
 void setup() {
-  createGUI();
-    size(1000, 700);
+    createGUI();
     background(0);
-    folderPath.push(new Folder("Library"));
+    folderPath.push(rootFolder);
     importFile();
 }
 
