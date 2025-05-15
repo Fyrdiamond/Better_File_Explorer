@@ -58,6 +58,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
 }
 
 void setup() {
+  createGUI();
     size(1000, 700);
     background(0);
     folderPath.push(new Folder("Library"));
