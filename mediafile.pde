@@ -22,6 +22,7 @@ class MediaFile{
     String name;
     Date date;
     FileType fileType;
+    GLabel FileLabel;
 
     //CONSTRUCTOR
     MediaFile(String n, Date d, FileType t){
@@ -44,11 +45,11 @@ class MediaFile{
     }
 
     void CreateLabel(PApplet screen){
-      int yCoord = (mediaFileList.size() * 30) + 35;
+      int yCoord = (rootFolder.files.size() + rootFolder.folders.size() * 30) + 35; 
       FileLabel = new GLabel(screen, 140, yCoord, 305, 20);
       FileLabel.setText(this.name);
       FileLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
       FileLabel.setOpaque(true);
-      FileListNames.add(FileLabel);
+      
     }
 }

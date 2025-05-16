@@ -2,6 +2,7 @@ import java.util.Date;
 import processing.video.*;
 import processing.sound.*;
 import g4p_controls.*;
+import java.awt.Font;
 
 Stack<Folder> folderPath = new Stack<Folder>();
 
