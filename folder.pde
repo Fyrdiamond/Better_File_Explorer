@@ -1,6 +1,7 @@
 enum FileSortKey {
     NAME,
-    DATE
+    DATE,
+    SEARCH;
 }
 
 class Folder {
@@ -8,10 +9,13 @@ class Folder {
     ArrayList<MediaFile> files;
     ArrayList<Folder> folders;
 
+    FileSortKey key;
+
     Folder(String name) {
         this.name = name;
         this.files = new ArrayList<MediaFile>();
         this.folders = new ArrayList<Folder>();
+        this.key = FileSortKey.NAME;
     }
 
     ArrayList<Folder> getFolders() {
@@ -34,72 +38,74 @@ class Folder {
         return (this.files.size() + this.folders.size()) == 0;
     }
 
-    ArrayList<MediaFile> getRecursiveSortedFiles(FileSortKey key) {
-        ArrayList<MediaFile> result = new ArrayList<MediaFile>();
-        int i = 0;
-        for (Folder folder : this.folders) {
-            result = mergeFiles(folder.getRecursiveSortedFiles(key), result, key);
-        }
-        return mergeFiles(result, this.getSortedFiles(key), key);
+    void sort() {
+        this.sort(this.files);
     }
 
-    ArrayList<MediaFile> getSortedFiles(FileSortKey key) {
-        return sortFiles(this.files, key);
-    }
+    void sort(ArrayList<MediaFile> list) {
+        int s = list.size();
+        if (s == 1) return;
 
-    ArrayList<MediaFile> sortFiles(ArrayList<MediaFile> files, FileSortKey key) {
-        int halfsize = files.size() << 1;
-        if (halfsize == 0) {
-            return files;
+        int first = 0;
+        int last = s;
+        int mid = last << 1;
+
+        ArrayList<MediaFile> l1 = new ArrayList<MediaFile>(mid - first);
+        ArrayList<MediaFile> l2 = new ArrayList<MediaFile>(last - mid);
+
+        for (int i = 0; i < mid; i++) {
+            l1.add(i, list.get(i));
         }
 
-        ArrayList<MediaFile> list1 = new ArrayList<MediaFile>();
-        ArrayList<MediaFile> list2 = new ArrayList<MediaFile>();
-        int i = 0;
-        for (MediaFile file : files) {
-            if (i++ < halfsize) {
-                list1.add(file);
-            } else {
-                list2.add(file);
-            }
+        for (int i = mid; i < last; i++) {
+            l2.add(i - mid, list.get(i));
         }
 
-        return mergeFiles(list1, list2, key);
+        list = merge(l1, l2);
     }
 
-    ArrayList<MediaFile> mergeFiles(ArrayList<MediaFile> list1, ArrayList<MediaFile> list2, FileSortKey key) {
-        ArrayList<MediaFile> result = new ArrayList<MediaFile>();
-        int i = list1.size();
-        int j = list2.size();
-        while (i > 0 & j > 0) {
-            if (fileComesBefore(list1.get(0), list2.get(0), key)) {
-                result.add(list1.get(0));
+    ArrayList<MediaFile> merge(ArrayList<MediaFile> list1, ArrayList<MediaFile> list2) {
+        int size1 = list1.size();
+        int size2 = list2.size();
+
+        ArrayList<MediaFile> resultList = new ArrayList<MediaFile>(size1 + size2);
+
+        MediaFile file1 = list1.get(0);
+        MediaFile file2 = list2.get(0);
+
+        while (size1 > 0 & size2 > 0) {
+            if (fileComesBefore(file1, file2)) {
+                resultList.add(file1);
                 list1.remove(0);
-                i--;
+                size1--;
+                file1 = list1.get(0);
             } else {
-                result.add(list2.get(0));
+                resultList.add(file2);
                 list2.remove(0);
-                j--;
+                size2--;
+                file1 = list2.get(0);
             }
-        }
-        while (i > 0) {
-            for (MediaFile file : list1) {
-                result.add(file);
-            }
-            i--;
-        }
-        while (j > 0) {
-            for (MediaFile file : list2) {
-                result.add(file);
-            }
-            j--;
         }
 
-        return result;
+        while (size1 > 0) {
+            resultList.add(file1);
+            list1.remove(0);
+            size1--;
+            file1 = list1.get(0);
+        }
+
+        while (size2 > 0) {
+            resultList.add(file2);
+            list2.remove(0);
+            size2--;
+            file1 = list2.get(0);
+        }
+
+        return resultList;
     }
 
-    boolean fileComesBefore(MediaFile file1, MediaFile file2, FileSortKey key) {
-        switch (key) {
+    boolean fileComesBefore(MediaFile file1, MediaFile file2) {
+        switch (this.key) {
             case NAME:
                 return file1.getName().compareTo(file2.getName()) == -1;
             case DATE:
@@ -107,6 +113,10 @@ class Folder {
             default:
                 throw new UnsupportedOperationException();
         }
+    }
+
+    void setKey(FileSortKey key) {
+        this.key = key;
     }
 
     void addFile(MediaFile file) {
