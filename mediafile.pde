@@ -42,4 +42,13 @@ class MediaFile{
     FileType getFileType(){
         return fileType;
     }
+
+    void CreateLabel(PApplet screen){
+      int yCoord = (mediaFileList.size() * 30) + 35;
+      FileLabel = new GLabel(screen, 140, yCoord, 305, 20);
+      FileLabel.setText(this.name);
+      FileLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+      FileLabel.setOpaque(true);
+      FileListNames.add(FileLabel);
+    }
 }
