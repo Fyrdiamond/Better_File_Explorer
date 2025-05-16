@@ -73,7 +73,6 @@ void setup() {
     createGUI();
     background(0);
     folderPath.push(rootFolder);
-    importFile();
 }
 
 void draw() {}
