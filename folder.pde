@@ -4,14 +4,17 @@ enum FileSortKey {
     SEARCH;
 }
 
-class Folder {
+class RootFolder {
+    RootFolder parent;
+
     String name;
     ArrayList<MediaFile> files;
     ArrayList<Folder> folders;
 
     FileSortKey key;
 
-    Folder(String name) {
+    RootFolder(String name) {
+        this.parent = this;
         this.name = name;
         this.files = new ArrayList<MediaFile>();
         this.folders = new ArrayList<Folder>();
@@ -22,8 +25,30 @@ class Folder {
         return this.folders;
     }
 
+    Folder getFolder(String name) {
+        for (Folder folder : this.folders) {
+            if (folder.getName().equals(name)) {
+                return folder;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
     ArrayList<MediaFile> getFiles() {
         return this.files;
+    }
+
+    MediaFile getFile(String name) {
+        for (MediaFile file : this.files) {
+            if (file.getName().equals(name)) {
+                return file;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
+
+    String getPath() {
+        return File.separator;
     }
 
     String getName() {
@@ -128,7 +153,7 @@ class Folder {
     }
 
     void addFolder(String name) {
-        this.folders.add(new Folder(name));
+        this.folders.add(new Folder(this, name));
         println("Created new folder:", name);
     }
 
@@ -140,5 +165,16 @@ class Folder {
                 break;
             }
         }
+    }
+}
+
+class Folder extends RootFolder {
+    Folder(RootFolder parent, String name) {
+        super(name);
+        this.parent = parent;
+    }
+
+    String getPath() {
+        return this.parent.getPath() + this.getName() + File.separator;
     }
 }
