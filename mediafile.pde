@@ -29,6 +29,7 @@ class MediaFile{
         this.name = n;
         this.date = d;
         this.fileType = t;
+        this.CreateLabel(s);
     }
 
     //METHODS
@@ -50,6 +51,5 @@ class MediaFile{
       FileLabel.setText(this.name);
       FileLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
       FileLabel.setOpaque(true);
-
     }
 }
