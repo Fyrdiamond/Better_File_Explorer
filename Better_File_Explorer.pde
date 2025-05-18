@@ -33,4 +33,18 @@ void setup() {
     File src = new File("/Users/lobbard/pfp.png");
 }
 
-void draw() {}
+void draw() {
+    int toolbarHeight = buttonHeight + 2 * buttonHeight / 2;
+    background(230);
+    noStroke();
+    //textSize(50);
+    fill(215);
+    rect(0,0,width,toolbarHeight);
+    fill(200);
+    rect(0,0,buttonWidth * 2, height);
+    stroke(180);
+    
+    line(0, toolbarHeight, buttonWidth * 2, toolbarHeight);
+    stroke(200);
+    line(140,35,600,35);
+}
