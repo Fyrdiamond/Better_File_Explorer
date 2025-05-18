@@ -49,6 +49,7 @@ void draw() {
 
 void checkSelectedObject(){
     for (MediaFile f: currentFolder.files){
+        
         if (f == currentFile){
             f.FileLabel.setLocalColorScheme(GCScheme.GREEN_SCHEME);
         }else{

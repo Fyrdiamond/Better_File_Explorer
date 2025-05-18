@@ -28,6 +28,7 @@ public void openMediaClicked(GButton source, GEvent event) { //_CODE_:OpenMedia:
 } //_CODE_:OpenMedia:789457:
 
 public void deleteFileClicked(GButton source, GEvent event) { //_CODE_:button2:772053:
+  deleteSelectedFile();
   //deleteSelectedFile();
 } //_CODE_:button2:772053:
 
@@ -61,7 +62,7 @@ public void createGUI(){
   deleteMediaButton = new GButton(this, width - buttonWidth, buttonHeight / 2, buttonWidth, buttonHeight);
   deleteMediaButton.setText("Delete");
   deleteMediaButton.setLocalColorScheme(GCScheme.RED_SCHEME);
-  deleteMediaButton.addEventHandler(this, "deleteFile");
+  deleteMediaButton.addEventHandler(this, "deleteFileClicked");
 }
 
 // Variable declarations 
