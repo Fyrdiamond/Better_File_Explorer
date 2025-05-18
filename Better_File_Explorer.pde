@@ -22,15 +22,6 @@ void settings() {
 
 void setup() {
     createGUI();
-    background(0);
-
-    String path = dataPath("");
-    currentFolder.addFolder("Library");
-    currentFolder = currentFolder.getFolder("Library");
-    println(currentFolder.getPath());
-    new File(path).mkdir();
-    File dst = new File(System.getProperty("user.dir"));
-    File src = new File("/Users/lobbard/pfp.png");
 }
 
 void draw() {

@@ -18,15 +18,14 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         // Test print statements
         println(fileModifiedDate);
         println(chosenFile.getName());
-        println("the file type is:", MediaFileType);
-        println (MediaFileType.valueOf(fileTypeString));
+        println(MediaFileType.valueOf(fileTypeString));
         // Creating a file from the MediaFile class
         for (String fileT : Photos){
             if (fileTypeString.equals(fileT)){
                 PImage file = loadImage(path);
                 Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, file);
-                print("this is a photo");
                 newFile.display();
+                addFileToCurrentFolder(path, FileName);
             }
         }
 
@@ -34,7 +33,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
             if (fileTypeString.equals(fileT)){
                 Movie file = new Movie (this, path);
                 Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, file);
-                print("this is a video");
+                addFileToCurrentFolder(path, FileName);
             }
         }
 
@@ -42,7 +41,7 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
             if (fileTypeString.equals(fileT)){
                 SoundFile file = new SoundFile(this, path);
                 Audio newFile = new Audio(FileName, fileModifiedDate, MediaFileType, file);
-                print("this is a audio");
+                addFileToCurrentFolder(path, FileName);
             }
         }
     }
@@ -50,9 +49,9 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
 
 void addFileToCurrentFolder(String path, String name) {
     Path src = Paths.get(path);
-    Path dst = Paths.get(dataPath(currentFolder.getPath() + name));
+    Path dst = Paths.get(dataPath("") + currentFolder.getPath() + name);
     try {
-        Files.move(src, dst);
+        Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException e) {
         e.printStackTrace();
     }
