@@ -13,9 +13,9 @@ enum FileType {
     WAV;
 }
 
-String [] Photos = {"JPG", "PNG", "TIFF", "BMP", "WBMP", "GIF"};
-String [] Videos = {"MP4", "MOV"};
-String [] Audios = {"MP3", "WAV"};
+String[] PHOTOS = {"JPG", "PNG", "TIFF", "BMP", "WBMP", "GIF"};
+String[] VIDEOS = {"MP4", "MOV"};
+String[] AUDIOS = {"MP3", "WAV"};
 
 class MediaFile{
     //FEILDS

@@ -5,10 +5,10 @@ import g4p_controls.*;
 import java.awt.Font;
 import java.nio.file.*;
 
-Folder Folder = new Folder("");
+Folder rootFolder = new Folder("");
 
-Folder currentFolder = Folder;
-PApplet MainScreen;
+Folder currentFolder = rootFolder;
+PApplet mainScreen;
 MediaFile currentFile;
 
 int buttonHeight = 30;
@@ -26,7 +26,7 @@ void settings() {
 }
 
 void setup() {
-    MainScreen = this;
+    mainScreen = this;
     createGUI();
 }
 

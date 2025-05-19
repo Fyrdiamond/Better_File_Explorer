@@ -6,42 +6,42 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
     if (chosenFile != null){
         // Finding the string of the chosen file location.
         String path = chosenFile.getAbsolutePath();
-        String FileName = chosenFile.getName();
+        String fileName = chosenFile.getName();
 
         // Finding the last Modified Date
         Date fileModifiedDate = new Date(chosenFile.lastModified());
 
         // Converting the string into an enum from our list of file format enums.
         String fileTypeString= path.substring(path.lastIndexOf(".") + 1).toUpperCase();
-        FileType MediaFileType = FileType.valueOf(fileTypeString);
+        FileType type = FileType.valueOf(fileTypeString);
 
         // Test print statements
         println(fileModifiedDate);
         println(chosenFile.getName());
-        println(MediaFileType.valueOf(fileTypeString));
+        println(type.valueOf(fileTypeString));
         // Creating a file from the MediaFile class
-        for (String fileT : Photos){
+        for (String fileT : PHOTOS){
             if (fileTypeString.equals(fileT)){
                 PImage file = loadImage(path);
-                Photo newFile = new Photo(FileName, fileModifiedDate, MediaFileType, file);
+                Photo newFile = new Photo(fileName, fileModifiedDate, type, file);
                 newFile.display();
-                addFileToCurrentFolder(path, FileName);
+                addFileToCurrentFolder(path, fileName);
             }
         }
 
-        for (String fileT : Videos){
+        for (String fileT : VIDEOS){
             if (fileTypeString.equals(fileT)){
                 Movie file = new Movie (this, path);
-                Video newFile = new Video(FileName, fileModifiedDate, MediaFileType, file);
-                addFileToCurrentFolder(path, FileName);
+                Video newFile = new Video(fileName, fileModifiedDate, type, file);
+                addFileToCurrentFolder(path, fileName);
             }
         }
 
-        for (String fileT : Audios){
+        for (String fileT : AUDIOS){
             if (fileTypeString.equals(fileT)){
                 SoundFile file = new SoundFile(this, path);
-                Audio newFile = new Audio(FileName, fileModifiedDate, MediaFileType, file);
-                addFileToCurrentFolder(path, FileName);
+                Audio newFile = new Audio(fileName, fileModifiedDate, type, file);
+                addFileToCurrentFolder(path, fileName);
             }
         }
     }
