@@ -11,7 +11,7 @@ void createWindow(){  // this function will execute when the user presses "open"
 }
 
 void deleteSelectedFile(){ // this function will execute when the user presses "delete"
-    if (selectedIndex >= 0){
+    if (selectedIndex > 0){
         if (selectedIndex < currentFolder.getFolders().size()){
             currentFolder.removeFolder(currentFolder.getFolders().get(selectedIndex).getName());
         } else {
@@ -19,7 +19,7 @@ void deleteSelectedFile(){ // this function will execute when the user presses "
             currentFolder.removeFile(currentFolder.getFiles().get(selectedIndex));
         }
         selectedIndex = -1;
-    } 
+    }
 }
 
 synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_:MediaWindow:247466:
