@@ -5,13 +5,13 @@ enum FileSortKey {
 }
 
 class RootFolder {
-    RootFolder parent;
+    private RootFolder parent;
 
-    String name;
-    ArrayList<MediaFile> files;
-    ArrayList<Folder> folders;
+    private String name;
+    private ArrayList<MediaFile> files;
+    private ArrayList<Folder> folders;
 
-    FileSortKey key;
+    private FileSortKey key;
 
     RootFolder(String name) {
         this.parent = this;
@@ -144,6 +144,14 @@ class RootFolder {
         this.key = key;
     }
 
+    void setParent(RootFolder parent) {
+        this.parent = parent;
+    }
+
+    RootFolder getParent() {
+        return this.parent;
+    }
+
     void addFile(MediaFile file) {
         this.files.add(file);
     }
@@ -154,14 +162,12 @@ class RootFolder {
 
     void addFolder(String name) {
         this.folders.add(new Folder(this, name));
-        println("Created new folder:", name);
     }
 
     void removeFolder(String name) {
         for (Folder folder : this.folders) {
             if (folder.getName().equals(name)) {
                 this.folders.remove(folder);
-                println("Removed folder:", name);
                 break;
             }
         }
@@ -169,28 +175,12 @@ class RootFolder {
 }
 
 class Folder extends RootFolder {
-
-    GLabel FolderLabel;
-    int LabelYCoord;
-    int LabelXCoord;
-
-
     Folder(RootFolder parent, String name) {
         super(name);
-        this.parent = parent;
-        this.CreateFolderLabel();
+        this.setParent(parent);
     }
 
     String getPath() {
-        return this.parent.getPath() + this.getName() + File.separator;
-    }
-
-    void CreateFolderLabel(){
-        LabelYCoord = ((currentFolder.files.size() + currentFolder.folders.size()) * 30) + toolbarHeight;
-        LabelXCoord = buttonWidth * 2; 
-        FolderLabel = new GLabel(MainScreen, LabelXCoord, LabelYCoord, 305, 20);
-        FolderLabel.setText(this.name);
-        FolderLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
-        FolderLabel.setOpaque(true);
+        return this.getParent().getPath() + this.getName() + File.separator;
     }
 }
