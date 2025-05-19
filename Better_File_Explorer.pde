@@ -5,9 +5,9 @@ import g4p_controls.*;
 import java.awt.Font;
 import java.nio.file.*;
 
-RootFolder rootFolder = new RootFolder("");
+Folder Folder = new Folder("");
 
-RootFolder currentFolder = rootFolder;
+Folder currentFolder = Folder;
 PApplet MainScreen;
 MediaFile currentFile;
 

@@ -4,8 +4,8 @@ enum FileSortKey {
     SEARCH;
 }
 
-class RootFolder {
-    private RootFolder parent;
+class Folder {
+    private Folder parent;
 
     private String name;
     private ArrayList<MediaFile> files;
@@ -13,8 +13,16 @@ class RootFolder {
 
     private FileSortKey key;
 
-    RootFolder(String name) {
-        this.parent = this;
+    Folder(String name) {
+        this.parent = this; // Root folder points to itself as parent
+        this.name = name;
+        this.files = new ArrayList<MediaFile>();
+        this.folders = new ArrayList<Folder>();
+        this.key = FileSortKey.NAME;
+    }
+
+    Folder(String name, Folder parent) {
+        this.parent = parent;
         this.name = name;
         this.files = new ArrayList<MediaFile>();
         this.folders = new ArrayList<Folder>();
@@ -48,7 +56,7 @@ class RootFolder {
     }
 
     String getPath() {
-        return File.separator;
+        return this.parent == this ? File.separator : this.parent.getPath() + this.name + File.separator;
     }
 
     String getName() {
@@ -144,11 +152,11 @@ class RootFolder {
         this.key = key;
     }
 
-    void setParent(RootFolder parent) {
+    void setParent(Folder parent) {
         this.parent = parent;
     }
 
-    RootFolder getParent() {
+    Folder getParent() {
         return this.parent;
     }
 
@@ -161,7 +169,7 @@ class RootFolder {
     }
 
     void addFolder(String name) {
-        this.folders.add(new Folder(this, name));
+        this.folders.add(new Folder(name, this));
     }
 
     void removeFolder(String name) {
@@ -171,16 +179,5 @@ class RootFolder {
                 break;
             }
         }
-    }
-}
-
-class Folder extends RootFolder {
-    Folder(RootFolder parent, String name) {
-        super(name);
-        this.setParent(parent);
-    }
-
-    String getPath() {
-        return this.getParent().getPath() + this.getName() + File.separator;
     }
 }
