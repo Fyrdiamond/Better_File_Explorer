@@ -39,7 +39,6 @@ public void createGUI(){
   G4P.messagesEnabled(false);
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
-  surface.setTitle("Library");
   importFileButton = new GButton(this, width - buttonWidth * 5, buttonHeight / 2, buttonWidth, buttonHeight);
   importFileButton.setText("Import File");
   importFileButton.addEventHandler(this, "importFileClicked");
