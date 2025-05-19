@@ -17,12 +17,10 @@ void deleteSelectedFile(){ // this function will execute when the user presses "
   if (currentFile != null){
     currentFolder.files.remove(currentFile);
     
-    for (int i = 0; i < (currentFolder.files.size() + currentFolder.folders.size()); i++){
-        MediaFile f = currentFolder.files.get(i);
-        f.LabelYCoord = (i * 30) + toolbarHeight;
+    for (MediaFile f: currentFolder.files){
+        f.LabelYCoord = (currentFolder.files.indexOf(f) * 30) + toolbarHeight;
         f.FileLabel.moveTo(f.LabelXCoord, f.LabelYCoord);
     }
-    
     
     currentFile.FileLabel.dispose();
     currentFile = null;

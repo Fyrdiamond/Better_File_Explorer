@@ -21,6 +21,7 @@ public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFil
 
 public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
   NewFolderButton.setFont(new Font("Dialog", Font.PLAIN, 14));
+  currentFolder.addFolder("New Folder");
 } //_CODE_:NewFolder:822673:
 
 public void openMediaClicked(GButton source, GEvent event) { //_CODE_:OpenMedia:789457:
@@ -39,8 +40,8 @@ public void createGUI(){
   G4P.setGlobalColorScheme(GCScheme.BLUE_SCHEME);
   G4P.setMouseOverEnabled(false);
   surface.setTitle("Library");
-  importFileButton = new GButton(this, width - buttonWidth * 4, buttonHeight / 2, buttonWidth, buttonHeight);
-  importFileButton.setText("importFile");
+  importFileButton = new GButton(this, width - buttonWidth * 5, buttonHeight / 2, buttonWidth, buttonHeight);
+  importFileButton.setText("Import File");
   importFileButton.addEventHandler(this, "importFileClicked");
 
   // "New Folder" button

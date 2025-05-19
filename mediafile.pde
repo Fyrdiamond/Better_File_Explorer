@@ -31,7 +31,7 @@ class MediaFile{
         this.name = n;
         this.date = d;
         this.fileType = t;
-        this.CreateLabel(MainScreen);
+        this.CreateLabel();
         currentFolder.addFile(this);
     }
 
@@ -48,10 +48,10 @@ class MediaFile{
         return fileType;
     }
 
-    void CreateLabel(PApplet screen){
+    void CreateLabel(){
       LabelYCoord = ((currentFolder.files.size() + currentFolder.folders.size()) * 30) + toolbarHeight;
       LabelXCoord = buttonWidth * 2; 
-      FileLabel = new GLabel(screen, LabelXCoord, LabelYCoord, 305, 20);
+      FileLabel = new GLabel(MainScreen, LabelXCoord, LabelYCoord, 305, 20);
       FileLabel.setText(this.name);
       FileLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
       FileLabel.setOpaque(true);

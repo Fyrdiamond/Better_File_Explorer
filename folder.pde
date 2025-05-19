@@ -169,12 +169,28 @@ class RootFolder {
 }
 
 class Folder extends RootFolder {
+
+    GLabel FolderLabel;
+    int LabelYCoord;
+    int LabelXCoord;
+
+
     Folder(RootFolder parent, String name) {
         super(name);
         this.parent = parent;
+        this.CreateFolderLabel();
     }
 
     String getPath() {
         return this.parent.getPath() + this.getName() + File.separator;
+    }
+
+    void CreateFolderLabel(){
+        LabelYCoord = ((currentFolder.files.size() + currentFolder.folders.size()) * 30) + toolbarHeight;
+        LabelXCoord = buttonWidth * 2; 
+        FolderLabel = new GLabel(MainScreen, LabelXCoord, LabelYCoord, 305, 20);
+        FolderLabel.setText(this.name);
+        FolderLabel.setFont(new Font("Dialog", Font.PLAIN, 14));
+        FolderLabel.setOpaque(true);
     }
 }

@@ -48,8 +48,9 @@ void draw() {
 }
 
 void checkSelectedObject(){
+
     for (MediaFile f: currentFolder.files){
-        
+
         if (f == currentFile){
             f.FileLabel.setLocalColorScheme(GCScheme.GREEN_SCHEME);
         }else{
@@ -59,12 +60,12 @@ void checkSelectedObject(){
 }
 
 void mousePressed(){
-    for (int i = 0; i < currentFolder.files.size(); i++){
-        GLabel FileLabel = currentFolder.files.get(i).FileLabel;
+    for (MediaFile f: currentFolder.files){
+        GLabel FileLabel = f.FileLabel;
         boolean isMouseAboveLabelX = (mouseX > FileLabel.getX() && mouseX < FileLabel.getX() + FileLabel.getWidth());
         boolean isMouseAboveLabelY = (mouseY > FileLabel.getY() && mouseY < FileLabel.getY() + FileLabel.getHeight());
         if (isMouseAboveLabelX && isMouseAboveLabelY){
-            currentFile = currentFolder.files.get(i);
+            currentFile = f;
         }
     }
 }
