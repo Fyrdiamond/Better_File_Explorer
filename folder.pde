@@ -148,6 +148,29 @@ class Folder {
         }
     }
 
+    void rename(String newName) {
+        if (this.getParent() != this) {
+            println("Renaming folder " + this.getName() + " to " + newName);
+            String name = this.getName();
+            Path oldPath = Paths.get(dataPath("") + this.getPath() + File.separator);
+            Path newPath = Paths.get(dataPath("") + this.getParent().getPath() + newName + File.separator);
+            try {
+                println("Copying " + oldPath + " to " + newPath);
+                Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
+                println("Copied " + oldPath + " to " + newPath);
+                deleteDir(oldPath.toFile());
+                println("Deleted " + oldPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.setName(newName);
+        }
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
+
     void setKey(FileSortKey key) {
         this.key = key;
     }
@@ -170,14 +193,26 @@ class Folder {
 
     void addFolder(String name) {
         this.folders.add(new Folder(name, this));
+        new File(dataPath("") + this.getPath() + name + File.separator).mkdir();
     }
 
     void removeFolder(String name) {
         for (Folder folder : this.folders) {
             if (folder.getName().equals(name)) {
+                deleteDir(new File(dataPath("") + this.getPath() + name + File.separator));
                 this.folders.remove(folder);
                 break;
             }
         }
     }
+}
+
+void deleteDir(File file) {
+    File[] contents = file.listFiles();
+    if (contents != null) {
+        for (File f : contents) {
+            deleteDir(f);
+        }
+    }
+    file.delete();
 }
