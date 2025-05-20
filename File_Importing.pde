@@ -14,36 +14,28 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         // Converting the string into an enum from our list of file format enums.
         String fileTypeString= path.substring(path.lastIndexOf(".") + 1).toUpperCase();
         FileType type = FileType.valueOf(fileTypeString);
-
+        String mediaType = getMediaType(type);
         // Test print statements
         println(fileModifiedDate);
         println(chosenFile.getName());
         println(type.valueOf(fileTypeString));
         // Creating a file from the MediaFile class
-        for (String fileT : PHOTOS){
-            if (fileTypeString.equals(fileT)){
-                PImage file = loadImage(path);
-                Photo newFile = new Photo(fileName, fileModifiedDate, type, file);
-                newFile.display();
-                addFileToCurrentFolder(path, fileName);
-            }
+        
+                if (mediaType.equals("Photo")||mediaType.equals("Gif")){
+          Photo newFile = new Photo(fileName, fileModifiedDate, type, path);
+          addFileToCurrentFolder(path, fileName);
         }
 
-        for (String fileT : VIDEOS){
-            if (fileTypeString.equals(fileT)){
-                Movie file = new Movie (this, path);
-                Video newFile = new Video(fileName, fileModifiedDate, type, file);
-                addFileToCurrentFolder(path, fileName);
-            }
+        if (mediaType.equals("Video")){
+          Video newFile = new Video(fileName, fileModifiedDate, type, path);
+          addFileToCurrentFolder(path, fileName);
         }
 
-        for (String fileT : AUDIOS){
-            if (fileTypeString.equals(fileT)){
-                SoundFile file = new SoundFile(this, path);
-                Audio newFile = new Audio(fileName, fileModifiedDate, type, file);
-                addFileToCurrentFolder(path, fileName);
-            }
-        }
+        if (mediaType.equals("Audio")){
+          Audio newFile = new Audio(fileName, fileModifiedDate, type, path);
+          addFileToCurrentFolder(path, fileName);
+        }       
+
     }
 }
 

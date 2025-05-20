@@ -5,10 +5,10 @@ class Video extends MediaFile {
     Movie file;
 
     //CONSTUCTOR
-    Video(String n, Date d, FileType t, Movie m){
-        super(n,  d,  t);
+    Video(String n, Date d, FileType t, String p){
+        super(n,  d,  t, p);
         this.volume = 100;
         this.paused = true;
-        this.file = m;
+
     } 
 }

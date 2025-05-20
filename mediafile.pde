@@ -22,12 +22,13 @@ class MediaFile{
     String name;
     Date date;
     FileType fileType;
-
+    String path;
     //CONSTRUCTOR
-    MediaFile(String n, Date d, FileType t){
+    MediaFile(String n, Date d, FileType t, String p){
         this.name = n;
         this.date = d;
         this.fileType = t;
+        this.path = p;
         currentFolder.addFile(this);
     }
 
@@ -42,5 +43,9 @@ class MediaFile{
 
     FileType getFileType(){
         return fileType;
+    }
+    
+    void setName(String n){
+      this.name = n;
     }
 }
