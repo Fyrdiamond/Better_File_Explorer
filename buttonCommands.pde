@@ -40,7 +40,7 @@ void openSelectedItem(){ // function that will execute when the user presses "op
 void renameSelectedItem(String newText){
     if (selectedIndex > 0){
         if (selectedIndex <= currentFolder.getFolders().size()){
-            currentFolder.getFolders().get(selectedIndex - 1).name = newText;
+            currentFolder.getFolders().get(selectedIndex - 1).rename(newText);
         } else {
             println("Object is not a folder");
         }

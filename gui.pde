@@ -24,8 +24,8 @@ public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewF
 } //_CODE_:NewFolder:822673:
 
 public void nameChange(GTextField source, GEvent event) { //_CODE_:textfield1:322137:
-  renameSelectedItem(fileRenamingField.getText());
   if (event == GEvent.ENTERED || event == GEvent.LOST_FOCUS){
+    renameSelectedItem(fileRenamingField.getText());
     fileRenamingField.dispose();
     fileRenamingField = null;
   }
