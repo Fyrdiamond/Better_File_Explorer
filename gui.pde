@@ -25,6 +25,7 @@ public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewF
 } //_CODE_:NewFolder:822673:
 
 public void openMediaClicked(GButton source, GEvent event) { //_CODE_:OpenMedia:789457:
+  openSelectedItem();
   //createWindow();
 } //_CODE_:OpenMedia:789457:
 

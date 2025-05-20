@@ -22,6 +22,22 @@ void deleteSelectedFile(){ // this function will execute when the user presses "
     }
 }
 
+
+void openSelectedItem(){ // function that will execute when the user presses "open"
+    if (selectedIndex > 0){
+        if (selectedIndex <= currentFolder.getFolders().size()){
+            currentFolder = currentFolder.getFolders().get(selectedIndex - 1);
+        } else {
+            println("Object is not a folder");
+        }
+        
+    } else {
+        currentFolder = rootFolder;
+    }
+    selectedIndex = -1;
+}
+
+
 synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_:mediaWindow:247466:
     appc.background(230);
     /*
