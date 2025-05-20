@@ -58,6 +58,7 @@ void settings() {
 void setup() {
     mainScreen = this;
     createGUI();
+    rootFolder.loadExistingData();
 }
 
 void draw() {
