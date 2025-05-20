@@ -77,7 +77,7 @@ void openSelectedItem(){ // function that will execute when the user presses "op
         }
         
     } else {
-        currentFolder = rootFolder;
+        currentFolder = currentFolder.getParent();
     }
 }
 
