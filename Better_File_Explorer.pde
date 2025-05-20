@@ -4,6 +4,7 @@ import processing.sound.*;
 import g4p_controls.*;
 import java.awt.Font;
 import java.nio.file.*;
+import gifAnimation.*;
 
 Folder rootFolder = new Folder("");
 
@@ -11,11 +12,41 @@ Folder currentFolder = rootFolder;
 PApplet mainScreen;
 MediaFile currentFile;
 
+Movie media1;
+PImage media2;
+SoundFile media3;
+Gif media4;
+
 int buttonHeight = 30;
 int buttonWidth = 80;
 int toolbarHeight = 2 * buttonHeight;
 
 int selectedIndex = -1;
+
+String getMediaType(FileType f){
+  String mediaType = null; 
+   for (String fileT : PHOTOS){
+     if (FileType.valueOf(fileT) == f){
+       mediaType = "Photo";
+     }
+        }
+
+   if (FileType.valueOf("GIF") == f){
+     mediaType = "Gif";
+   }
+   
+   for (String fileT : VIDEOS){
+     if (FileType.valueOf(fileT) == f){
+       mediaType = "Video";
+     }
+   }
+   for (String fileT : AUDIOS){
+     if (FileType.valueOf(fileT)==f){
+       mediaType = "Audio";
+     }
+   }
+   return mediaType;
+}
 
 void settings() {
     int maxW = displayWidth * 2 / 3;
