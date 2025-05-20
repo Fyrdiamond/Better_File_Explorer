@@ -12,7 +12,7 @@ void createWindow(){  // this function will execute when the user presses "open"
 
 void deleteSelectedFile(){ // this function will execute when the user presses "delete"
     if (selectedIndex > 0){
-        if (selectedIndex < currentFolder.getFolders().size()){
+        if (selectedIndex <= currentFolder.getFolders().size()){
             currentFolder.removeFolder(currentFolder.getFolders().get(selectedIndex - 1).getName());
         } else {
             selectedIndex -= currentFolder.getFolders().size();
