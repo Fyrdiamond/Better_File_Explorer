@@ -32,11 +32,13 @@ public void nameChange(GTextField source, GEvent event) { //_CODE_:textfield1:32
 } //_CODE_:textfield1:322137:
 
 public void renameButtonClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
-  int yCoordinate = toolbarHeight + (selectedIndex * buttonHeight);
-  fileRenamingField = new GTextField(this, buttonWidth * 2, yCoordinate, width - buttonWidth * 2, buttonHeight, G4P.SCROLLBARS_NONE);
-  fileRenamingField.setOpaque(false);
-  fileRenamingField.addEventHandler(this, "nameChange");
-  fileRenamingField.setFocus(true);
+  if (selectedIndex > 0){
+    int yCoordinate = toolbarHeight + (selectedIndex * buttonHeight);
+    fileRenamingField = new GTextField(this, buttonWidth * 2, yCoordinate, width - buttonWidth * 2, buttonHeight, G4P.SCROLLBARS_NONE);
+    fileRenamingField.setOpaque(false);
+    fileRenamingField.addEventHandler(this, "nameChange");
+    fileRenamingField.setFocus(true);
+  }
 } //_CODE_:NewFolder:822673:
 
 public void openMediaClicked(GButton source, GEvent event) { //_CODE_:OpenMedia:789457:
