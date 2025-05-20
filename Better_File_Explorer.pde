@@ -5,7 +5,6 @@ import g4p_controls.*;
 import java.awt.Font;
 import java.nio.file.*;
 import gifAnimation.*;
-
 Folder rootFolder = new Folder("");
 
 Folder currentFolder = rootFolder;
@@ -137,7 +136,9 @@ void mousePressed(){
     // Get the selected file or folder if the mouse is within the display area for files and folders
     if (mouseX > 2 * buttonWidth && mouseY > toolbarHeight && mouseY < buttonHeight * (currentFolder.getSize() + 1) + toolbarHeight) {
         selectedIndex = (int) (mouseY - toolbarHeight) / buttonHeight;
-    } else {
-        if (mouseY > toolbarHeight) selectedIndex = -1;
+        print(selectedIndex);
+    //} else {
+    //    if (mouseY > toolbarHeight) selectedIndex = -1;
+    //}
     }
 }

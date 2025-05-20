@@ -29,7 +29,6 @@ class MediaFile{
         this.date = d;
         this.fileType = t;
         this.path = p;
-        currentFolder.addFile(this);
     }
 
     //METHODS
@@ -47,5 +46,9 @@ class MediaFile{
     
     void setName(String n){
       this.name = n;
+    }
+    
+    String getPath(){
+      return this.path;
     }
 }

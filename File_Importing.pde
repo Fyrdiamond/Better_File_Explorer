@@ -24,16 +24,19 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
                 if (mediaType.equals("Photo")||mediaType.equals("Gif")){
           Photo newFile = new Photo(fileName, fileModifiedDate, type, path);
           addFileToCurrentFolder(path, fileName);
+          currentFolder.addFile(newFile);
         }
 
         if (mediaType.equals("Video")){
           Video newFile = new Video(fileName, fileModifiedDate, type, path);
           addFileToCurrentFolder(path, fileName);
+          currentFolder.addFile(newFile);
         }
 
         if (mediaType.equals("Audio")){
           Audio newFile = new Audio(fileName, fileModifiedDate, type, path);
           addFileToCurrentFolder(path, fileName);
+          currentFolder.addFile(newFile);
         }       
 
     }

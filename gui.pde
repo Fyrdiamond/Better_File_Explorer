@@ -13,6 +13,22 @@
  * Do not rename this tab!
  * =========================================================
  */
+public void previousMediaButtonClicked(GButton source, GEvent event){
+  if (selectedIndex > 1){
+     if (selectedIndex > currentFolder.getFolders().size() + 1){
+        selectedIndex --;
+        changeWindow();
+     }
+  }
+}
+
+public void nextMediaButtonClicked(GButton source, GEvent event){
+  print(selectedIndex);
+  if (selectedIndex < currentFolder.getSize()){
+    selectedIndex ++;
+    changeWindow();
+   }
+  } 
 
 public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFileButton:738052:
   importFile();
