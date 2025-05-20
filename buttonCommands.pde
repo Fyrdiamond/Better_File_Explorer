@@ -37,6 +37,17 @@ void openSelectedItem(){ // function that will execute when the user presses "op
     selectedIndex = -1;
 }
 
+void renameSelectedItem(String newText){
+    if (selectedIndex > 0){
+        if (selectedIndex <= currentFolder.getFolders().size()){
+            currentFolder.getFolders().get(selectedIndex - 1).name = newText;
+        } else {
+            println("Object is not a folder");
+        }
+        
+    }
+}
+
 
 synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_:mediaWindow:247466:
     appc.background(230);

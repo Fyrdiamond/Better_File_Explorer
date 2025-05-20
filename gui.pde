@@ -20,12 +20,22 @@ public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFil
 } //_CODE_:importFileButton:738052:
 
 public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
-  newFolderButton.setFont(new Font("Dialog", Font.PLAIN, 14));
   currentFolder.addFolder("New Folder");
 } //_CODE_:NewFolder:822673:
 
+public void nameChange(GTextField source, GEvent event) { //_CODE_:textfield1:322137:
+  renameSelectedItem(FileRenamingField.getText());
+  if (event == GEvent.ENTERED || event == GEvent.LOST_FOCUS){
+    FileRenamingField.dispose();
+    FileRenamingField = null;
+  }
+} //_CODE_:textfield1:322137:
+
 public void renameButtonClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
-  
+  FileRenamingField = new GTextField(this, 120, 0, 120, 30, G4P.SCROLLBARS_NONE);
+  FileRenamingField.setOpaque(true);
+  FileRenamingField.addEventHandler(this, "nameChange");
+  FileRenamingField.setFocus(true);
 } //_CODE_:NewFolder:822673:
 
 public void openMediaClicked(GButton source, GEvent event) { //_CODE_:OpenMedia:789457:
@@ -84,3 +94,4 @@ GButton renameObjectButton;
 GButton newFolderButton; 
 GButton openMediaButton; 
 GButton deleteMediaButton; 
+GTextField FileRenamingField;
