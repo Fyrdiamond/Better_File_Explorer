@@ -16,14 +16,14 @@ Folder rootFolder = new Folder("");
 Folder currentFolder = rootFolder;
 PApplet mainScreen;
 MediaFile currentFile;
-
+Video fileAsVideo;
+Audio fileAsAudio;
 Movie media1;
 PImage media2;
 SoundFile media3;
 Gif media4;
 int[] dim;
 boolean dragging = false;
-boolean videoDisplaying = false;
 GButton pausePlayButton;
 
 int buttonHeight = 30;
@@ -35,8 +35,14 @@ int displayIndex = -1;
 
 void updateVideo(float mx){
   if (mediaWindow != null){
-    currentFile.progress = constrain((mx -(buttonWidth + buttonHeight))/(width - 2*buttonWidth - buttonHeight), 0, 1);
-    media1.jump(currentFile.progress*media1.duration());
+    fileAsVideo.progress = constrain((mx -(buttonWidth + buttonHeight))/(width - 2*buttonWidth - buttonHeight), 0, 1);
+    media1.jump(fileAsVideo.progress*media1.duration());
+  }
+}
+void updateAudio(float mx){
+  if (mediaWindow != null){
+    fileAsAudio.progress = constrain((mx -(buttonWidth + buttonHeight))/(width - 2*buttonWidth - buttonHeight), 0, 1);
+    media3.jump(fileAsAudio.progress*media3.duration());
   }
 }
 
