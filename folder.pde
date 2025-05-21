@@ -143,6 +143,9 @@ class Folder {
                 return file1.getName().compareTo(file2.getName()) == -1;
             case DATE:
                 return file1.getDate().compareTo(file2.getDate()) == -1;
+            case SEARCH:
+                String searchKey = fileSearchingField.getText();
+                return search(file1.getName(), searchKey) > search(file2.getName(), searchKey);
             default:
                 throw new UnsupportedOperationException();
         }
