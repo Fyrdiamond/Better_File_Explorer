@@ -208,18 +208,18 @@ class Folder {
 
     void loadExistingData() {
         File folder = new File(dataPath("") + this.getPath());
-            for (File file : folder.listFiles()) {
-                if (file.isDirectory()) {
-                    this.addFolder(file.getName());
-                    this.getFolder(file.getName()).loadExistingData();
-                } else {
-                    Folder tempCurrentFolder = currentFolder;
-                    currentFolder = this;
-                    FileSelected(file);
-                    currentFolder = tempCurrentFolder;
-                }
+        for (File file : folder.listFiles()) {
+            if (file.isDirectory()) {
+                this.addFolder(file.getName());
+                this.getFolder(file.getName()).loadExistingData();
+            } else {
+                Folder tempCurrentFolder = currentFolder;
+                currentFolder = this;
+                FileSelected(file);
+                currentFolder = tempCurrentFolder;
             }
         }
+    }
 }
 
 void deleteDir(File file) {
