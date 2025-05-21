@@ -21,6 +21,12 @@ public void previousMediaButtonClicked(GButton source, GEvent event){
          media1.pause();
          media1 = null;
        }
+       if(getMediaType(currentFile.getFileType()).equals("Audio")){
+          fileAsAudio.paused = false;
+          media3.pause();
+          media3 = null;
+       }
+       pausePlayButton.setVisible(false);
        displayIndex --;
        changeWindow();
      }
@@ -39,6 +45,7 @@ public void nextMediaButtonClicked(GButton source, GEvent event){
       media3.pause();
       media3 = null;
     }
+    pausePlayButton.setVisible(false);
     displayIndex ++;
     changeWindow();
    }
@@ -70,7 +77,6 @@ public void pausePlayButtonClicked(GButton source, GEvent event){
 
 public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFileButton:738052:
   importFile();
-  //text();
 } //_CODE_:importFileButton:738052:
 
 public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
@@ -128,14 +134,12 @@ public void createGUI(){
   newFolderButton = new GButton(this, width - buttonWidth * 4, buttonHeight / 2, buttonWidth, buttonHeight);
   newFolderButton.setText("New Folder");
   newFolderButton.setLocalColorScheme(GCScheme.BLUE_SCHEME);
-  //newFolderButton.setLocalColorScheme(GCScheme.SCHEME_10);
   newFolderButton.addEventHandler(this, "createNewFolderClicked");
 
 
   renameObjectButton = new GButton(this, width - buttonWidth * 3, buttonHeight / 2, buttonWidth, buttonHeight);
   renameObjectButton.setText("Rename");
   renameObjectButton.setLocalColorScheme(GCScheme.BLUE_SCHEME);
-  //newFolderButton.setLocalColorScheme(GCScheme.SCHEME_10);
   renameObjectButton.addEventHandler(this, "renameButtonClicked");
   
   // "Open file" button

@@ -16,11 +16,6 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
         FileType type = FileType.valueOf(fileTypeString);
         String mediaType = getMediaType(type);
         
-        // Test print statements
-        println(fileModifiedDate);
-        println(chosenFile.getName());
-        println(type.valueOf(fileTypeString));
-        
         // Creating a file from the MediaFile class
         if (mediaType.equals("Photo")||mediaType.equals("Gif")){
           Photo newFile = new Photo(fileName, fileModifiedDate, type, path);

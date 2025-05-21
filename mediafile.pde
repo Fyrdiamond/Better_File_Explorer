@@ -8,13 +8,12 @@ enum FileType {
     WBMP,
     GIF,
     MP4,
-    MOV,
     MP3,
     WAV;
 }
 
 String[] PHOTOS = {"JPG", "PNG", "TIFF", "BMP", "WBMP", "GIF"};
-String[] VIDEOS = {"MP4", "MOV"};
+String[] VIDEOS = {"MP4"};
 String[] AUDIOS = {"MP3", "WAV"};
 
 class MediaFile{

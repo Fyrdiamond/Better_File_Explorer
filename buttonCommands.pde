@@ -171,7 +171,7 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
         PImage img = loadImage("audio.png");
         mediaWindow.image(img, width/2.0 - (2/6.0)*img.width , height/2.0 - (2/6.0)*img.height, (2/3.0)*img.width, (2/3.0)*img.height);
         if(!dragging){
-        //  fileAsAudio.progress = fileAsAudio.time()/media3.duration();
+          fileAsAudio.progress = media3.position()/media3.duration();
         }
         mediaWindow.fill(255);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 
@@ -191,8 +191,8 @@ public void resetMedia(GWindow window) { //_CODE_:mediaWindow:917051:
     FileType displayFileType = currentFile.getFileType();
     String displayMediaType = getMediaType(displayFileType);
     if (displayMediaType.equals("Video")){
-     media1.pause();
-     media1 = null;
+       media1.pause();
+       media1 = null;
     }
     
     if (displayMediaType.equals("Photos")){
@@ -209,5 +209,4 @@ public void resetMedia(GWindow window) { //_CODE_:mediaWindow:917051:
     }
     mediaWindow = null;
 
-    //img = null;
 } //_CODE_:mediaWindow:917051:
