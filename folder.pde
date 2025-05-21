@@ -150,14 +150,12 @@ class Folder {
     boolean fileComesBefore(MediaFile file1, MediaFile file2) {
         switch (this.key) {
             case NAME:
-                return file1.getName().compareTo(file2.getName()) == -1;
+                return !(file1.getName().compareTo(file2.getName()) == 1);
             case DATE:
-                return file1.getDate().compareTo(file2.getDate()) == -1;
+                return !(file1.getDate().compareTo(file2.getDate()) == 1);
             case SEARCH:
                 String searchKey = fileSearchingField.getText();
-                float whatValequals1 = search(file1.getName(), searchKey);
-                float whatValequals2 = search(file2.getName(), searchKey);
-                return search(file1.getName(), searchKey) > search(file2.getName(), searchKey);
+                return !(search(file1.getName(), searchKey) < search(file2.getName(), searchKey));
             default:
                 throw new UnsupportedOperationException();
         }
