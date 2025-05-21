@@ -72,16 +72,16 @@ class Folder {
     }
 
     void sort() {
-        this.sort(this.files);
+        this.files = this.sort(this.files);
     }
 
-    void sort(ArrayList<MediaFile> list) {
+    ArrayList<MediaFile> sort(ArrayList<MediaFile> list) {
         int s = list.size();
-        if (s == 1) return;
+        if (s == 1) return list;
 
         int first = 0;
         int last = s;
-        int mid = last << 1;
+        int mid = last >> 1;
 
         ArrayList<MediaFile> l1 = new ArrayList<MediaFile>(mid - first);
         ArrayList<MediaFile> l2 = new ArrayList<MediaFile>(last - mid);
@@ -93,8 +93,9 @@ class Folder {
         for (int i = mid; i < last; i++) {
             l2.add(i - mid, list.get(i));
         }
-
+        
         list = merge(l1, l2);
+        return list;
     }
 
     ArrayList<MediaFile> merge(ArrayList<MediaFile> list1, ArrayList<MediaFile> list2) {
@@ -102,36 +103,45 @@ class Folder {
         int size2 = list2.size();
 
         ArrayList<MediaFile> resultList = new ArrayList<MediaFile>(size1 + size2);
-
+        int numCombined = 0;
         MediaFile file1 = list1.get(0);
         MediaFile file2 = list2.get(0);
 
         while (size1 > 0 & size2 > 0) {
             if (fileComesBefore(file1, file2)) {
-                resultList.add(file1);
+                resultList.add(numCombined, file1);
                 list1.remove(0);
                 size1--;
-                file1 = list1.get(0);
+                if (size1 > 0){
+                    file1 = list1.get(0);
+                }
             } else {
-                resultList.add(file2);
+                resultList.add(numCombined, file2);
                 list2.remove(0);
                 size2--;
-                file1 = list2.get(0);
+                if (size2 > 0){
+                    file2 = list2.get(0);
+                }
             }
+            numCombined++;
         }
-
+        
         while (size1 > 0) {
             resultList.add(file1);
             list1.remove(0);
             size1--;
-            file1 = list1.get(0);
+            if (size1 > 0){
+                file1 = list1.get(0);
+            }
         }
 
         while (size2 > 0) {
             resultList.add(file2);
             list2.remove(0);
             size2--;
-            file1 = list2.get(0);
+            if (size2 > 0){
+                file2 = list2.get(0);
+            }
         }
 
         return resultList;
@@ -143,6 +153,11 @@ class Folder {
                 return file1.getName().compareTo(file2.getName()) == -1;
             case DATE:
                 return file1.getDate().compareTo(file2.getDate()) == -1;
+            case SEARCH:
+                String searchKey = fileSearchingField.getText();
+                float whatValequals1 = search(file1.getName(), searchKey);
+                float whatValequals2 = search(file2.getName(), searchKey);
+                return search(file1.getName(), searchKey) > search(file2.getName(), searchKey);
             default:
                 throw new UnsupportedOperationException();
         }
@@ -150,20 +165,19 @@ class Folder {
 
     void rename(String newName) {
         if (this.getParent() != this) {
-            println("Renaming folder " + this.getName() + " to " + newName);
             String name = this.getName();
             Path oldPath = Paths.get(dataPath("") + this.getPath() + File.separator);
             Path newPath = Paths.get(dataPath("") + this.getParent().getPath() + newName + File.separator);
+            if (newPath.toFile().exists()) {
+                return;
+            }
             try {
-                println("Copying " + oldPath + " to " + newPath);
                 Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
-                println("Copied " + oldPath + " to " + newPath);
                 deleteDir(oldPath.toFile());
-                println("Deleted " + oldPath);
+                this.setName(newName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            this.setName(newName);
         }
     }
 

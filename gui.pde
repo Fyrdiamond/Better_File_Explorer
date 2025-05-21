@@ -86,6 +86,15 @@ public void nameChange(GTextField source, GEvent event) { //_CODE_:textfield1:32
   }
 } //_CODE_:textfield1:322137:
 
+public void searchChange(GTextField source, GEvent event) { //_CODE_:textfield1:322137:
+  if (event == GEvent.ENTERED || event == GEvent.LOST_FOCUS){
+    println(fileSearchingField.getText());
+    currentFolder.setKey(FileSortKey.SEARCH);
+    currentFolder.sort();
+    redraw();
+  }
+} //_CODE_:textfield1:322137:
+
 public void renameButtonClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
   if (selectedIndex > 0){
     int yCoordinate = toolbarHeight + (selectedIndex * buttonHeight);
@@ -142,6 +151,10 @@ public void createGUI(){
   deleteMediaButton.setText("Delete");
   deleteMediaButton.setLocalColorScheme(GCScheme.RED_SCHEME);
   deleteMediaButton.addEventHandler(this, "deleteFileClicked");
+
+  fileSearchingField = new GTextField(this, buttonWidth * 2, buttonHeight / 2, width - buttonWidth * 7, buttonHeight);
+  fileSearchingField.setOpaque(false);
+  fileSearchingField.addEventHandler(this, "searchChange");
 }
 
 // Variable declarations 
@@ -152,3 +165,4 @@ GButton newFolderButton;
 GButton openMediaButton; 
 GButton deleteMediaButton; 
 GTextField fileRenamingField;
+GTextField fileSearchingField;
