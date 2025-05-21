@@ -208,7 +208,6 @@ class Folder {
 
     void loadExistingData() {
         File folder = new File(dataPath("") + this.getPath());
-        if (folder.listFiles() != null){
             for (File file : folder.listFiles()) {
                 if (file.isDirectory()) {
                     this.addFolder(file.getName());
@@ -221,7 +220,6 @@ class Folder {
                 }
             }
         }
-    }
 }
 
 void deleteDir(File file) {
