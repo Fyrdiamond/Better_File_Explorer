@@ -63,7 +63,9 @@ void deleteSelectedFile(){ // this function will execute when the user presses "
             currentFolder.removeFolder(currentFolder.getFolders().get(selectedIndex - 1).getName());
         } else {
             selectedIndex -= currentFolder.getFolders().size();
+            deleteDir(new File(currentFolder.getFiles().get(selectedIndex - 1).getPath()));
             currentFolder.removeFile(currentFolder.getFiles().get(selectedIndex - 1));
+            
         }
         selectedIndex = -1;
     }
