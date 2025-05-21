@@ -182,6 +182,30 @@ class Folder {
         }
     }
 
+    void renameFile(String oldName, String newName) {
+        for (MediaFile file : this.files) {
+            if (file.getName().equals(oldName)) {
+                String fileEnding = oldName.substring(oldName.lastIndexOf("."));
+                println(fileEnding);
+                if (!newName.endsWith(fileEnding)) {
+                    newName += fileEnding;
+                }
+                Path oldPath = Paths.get(dataPath("") + this.getPath() + oldName);
+                Path newPath = Paths.get(dataPath("") + this.getPath() + newName);
+                if (newPath.toFile().exists()) {
+                    return;
+                }
+                try {
+                    Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
+                    deleteDir(oldPath.toFile());
+                    file.setName(newName);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     private void setName(String name) {
         this.name = name;
     }

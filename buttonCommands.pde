@@ -96,7 +96,9 @@ void renameSelectedItem(String newText){
         if (selectedIndex <= currentFolder.getFolders().size()){
             currentFolder.getFolders().get(selectedIndex - 1).rename(newText);
         } else {
-            print("not Folder");
+            selectedIndex -= currentFolder.getFolders().size();
+            MediaFile file = currentFolder.getFiles().get(selectedIndex - 1);
+            currentFolder.renameFile(file.getName(), newText);
         }
         
     }
