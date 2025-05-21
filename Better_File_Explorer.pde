@@ -6,8 +6,9 @@ import java.awt.Font;
 import java.nio.file.*;
 import gifAnimation.*;
 
-void movieEvent(Movie movie) {
-  movie.read();
+void movieEvent(Movie m) {
+  m.read();
+  dim = resize(m.width, m.height);
 }
 
 Folder rootFolder = new Folder("");
@@ -20,6 +21,10 @@ Movie media1;
 PImage media2;
 SoundFile media3;
 Gif media4;
+int[] dim;
+boolean dragging = false;
+boolean videoDisplaying = false;
+GButton pausePlayButton;
 
 int buttonHeight = 30;
 int buttonWidth = 80;
@@ -27,6 +32,13 @@ int toolbarHeight = 2 * buttonHeight;
 
 int selectedIndex = -1;
 int displayIndex = -1;
+
+void updateVideo(float mx){
+  if (mediaWindow != null){
+    currentFile.progress = constrain((mx -(buttonWidth + buttonHeight))/(width - 2*buttonWidth - buttonHeight), 0, 1);
+    media1.jump(currentFile.progress*media1.duration());
+  }
+}
 
 String getMediaType(FileType f){
   String mediaType = null; 
@@ -65,6 +77,7 @@ void setup() {
     mainScreen = this;
     createGUI();
     rootFolder.loadExistingData();
+    imageMode(CENTER);
 }
 
 void draw() {
@@ -82,6 +95,41 @@ void draw() {
     line(140,35,600,35);
 
     drawCurrentFolder();
+}
+int[] resize(int w, int h){
+  float ratio = float(w)/float(h);
+  float newHeight = h;
+  float newWidth = w;
+  if (height - 2*buttonHeight < h){
+    newHeight = height - 2*buttonHeight;
+    newWidth = newHeight * ratio;
+    if (width - 2*buttonWidth < newWidth){
+      newWidth = width - 2*buttonWidth;
+      newHeight = newWidth/ratio;
+    }
+  }
+  
+  else if(width - 2*buttonWidth < w){
+    newWidth = width - 2*buttonWidth;
+    newHeight = newWidth/ratio;
+    if (height -2*buttonHeight < newHeight){
+      newHeight = height - 2*buttonHeight;
+      newWidth = newHeight * ratio;
+    }
+  }
+  
+  else if(height -2*buttonHeight > h){
+    newHeight = height -2*buttonHeight;
+    newWidth = newHeight*ratio;
+    
+    if (width - 2*buttonWidth < newWidth){
+      newWidth = width - 2*buttonWidth;
+      newHeight = newWidth/ratio;
+    }
+    
+  }
+  int[] dimensions = {int(newWidth), int(newHeight)};
+  return dimensions;
 }
 
 void drawCurrentFolder() {
@@ -138,14 +186,18 @@ void drawCurrentFolder() {
         rect(buttonWidth * 2, selectedIndex * buttonHeight + toolbarHeight, width - buttonWidth * 2, buttonHeight);
     }
 }
-
+{
+  
+  
+}
 void mousePressed(){
     // Get the selected file or folder if the mouse is within the display area for files and folders
     if (mouseX > 2 * buttonWidth && mouseY > toolbarHeight && mouseY < buttonHeight * (currentFolder.getSize() + 1) + toolbarHeight) {
         selectedIndex = (int) (mouseY - toolbarHeight) / buttonHeight;
         displayIndex = selectedIndex;
-    //} else {
-    //    if (mouseY > toolbarHeight) selectedIndex = -1;
-    //}
+    } 
+    
+    else {
+        if (mouseY > toolbarHeight) selectedIndex = -1;
     }
 }

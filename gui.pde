@@ -17,6 +17,8 @@ public void previousMediaButtonClicked(GButton source, GEvent event){
   if (displayIndex > 1){
      if (displayIndex > currentFolder.getFolders().size() + 1){
        if (getMediaType(currentFile.getFileType()).equals("Video")){
+         videoDisplaying = false;
+         currentFile.paused = false;
          media1.pause();
          media1 = null;
        }
@@ -29,6 +31,8 @@ public void previousMediaButtonClicked(GButton source, GEvent event){
 public void nextMediaButtonClicked(GButton source, GEvent event){
   if (displayIndex < currentFolder.getSize()){
     if(getMediaType(currentFile.getFileType()).equals("Video")){
+      videoDisplaying = false;
+      currentFile.paused = false;
       media1.pause();
       media1 = null;
     }
@@ -36,6 +40,17 @@ public void nextMediaButtonClicked(GButton source, GEvent event){
     changeWindow();
    }
   } 
+public void pausePlayButtonClicked(GButton source, GEvent event){
+  currentFile.paused = !currentFile.paused;
+  if (currentFile.paused){
+    media1.pause();
+    pausePlayButton.setText("Play");
+  }
+  else{
+    media1.play();
+    pausePlayButton.setText("Pause");
+  }
+}
 
 public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFileButton:738052:
   importFile();
@@ -43,7 +58,8 @@ public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFil
 } //_CODE_:importFileButton:738052:
 
 public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
-  currentFolder.addFolder("New Folder");
+  String n = "New Folder" + (currentFolder.getFolders().size() + 1);
+  currentFolder.addFolder(n);
 } //_CODE_:NewFolder:822673:
 
 public void nameChange(GTextField source, GEvent event) { //_CODE_:textfield1:322137:

@@ -2,6 +2,7 @@ class Video extends MediaFile {
     //FEILDS
     boolean paused;
     float volume;
+    float progress = 0;
     Movie file;
 
     //CONSTUCTOR

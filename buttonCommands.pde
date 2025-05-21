@@ -5,52 +5,54 @@ void changeWindow(){
     String displayMediaType = getMediaType(displayFileType);
     String displayFilePath = currentFile.getPath();
     
-    
     if (displayMediaType.equals("Video")){
-     
+      pausePlayButton.setVisible(true);
       media1 = new Movie(this, displayFilePath);
       media1.loop();
+      //media1.pause();
     }
     
     if (displayMediaType.equals("Photo")){
       media2 = loadImage(displayFilePath);
+      dim = resize(media2.width, media2.height);
+      media2.resize(dim[0],dim[1]);
     }
     
     if (displayMediaType.equals("Audio")){
       media3 = new SoundFile(this, displayFilePath);
       media3.play();
-      print("yes");
 
     }
     if(displayMediaType.equals("Gif")){
       media4 = new Gif(this, displayFilePath);
+      dim = resize(media4.width, media4.height);
       media4.loop();
     }
 }
 
 void createWindow(){  // this function will execute when the user presses "open"
-    int maxW = displayWidth * 2 / 3;
-    int maxH = displayHeight * 2 / 3;
-    int w = maxW;
-    int h = maxH / buttonHeight * buttonHeight;
     if (mediaWindow == null){
-      mediaWindow = GWindow.getWindow(this, "mediaView", 0, 0, w, h, JAVA2D);
+      mediaWindow = GWindow.getWindow(this, "mediaView", 0, 0, width, height, JAVA2D);
       mediaWindow.setActionOnClose(G4P.CLOSE_WINDOW);
       mediaWindow.addDrawHandler(this, "mediaWindowOpen");
+      mediaWindow.addMouseHandler(this, "mediaWindowMouse");
       mediaWindow.addOnCloseHandler(this, "resetMedia");
       mediaWindow.loop();
       
       GButton nextMediaButton;
-      nextMediaButton = new GButton(mediaWindow, width - buttonWidth, height / 2, buttonHeight, buttonHeight);
+      nextMediaButton = new GButton(mediaWindow, width - (1/2.0)*buttonWidth, height/2, buttonHeight, buttonHeight);
       nextMediaButton.setText(">");
       nextMediaButton.addEventHandler(this, "nextMediaButtonClicked");
       
       GButton previousMediaButton;
-      previousMediaButton = new GButton(mediaWindow, 0 + buttonWidth, height/2, buttonHeight, buttonHeight);
+      previousMediaButton = new GButton(mediaWindow, 0 +(1/2.0)*buttonWidth - buttonHeight, height/2, buttonHeight, buttonHeight);
       previousMediaButton.setText("<");
       previousMediaButton.addEventHandler(this, "previousMediaButtonClicked");
       
-      
+      pausePlayButton = new GButton(mediaWindow, (1/2.0)*buttonWidth, height - (3/2.0)*buttonHeight, (2/3.0)*buttonWidth, buttonHeight);
+      pausePlayButton.setText("Play");
+      pausePlayButton.addEventHandler(this, "pausePlayButtonClicked");
+      pausePlayButton.setVisible(false);
     }
     changeWindow();
 }
@@ -93,21 +95,53 @@ void renameSelectedItem(String newText){
         
     }
 }
+public void mediaWindowMouse(PApplet appc, GWinData data, MouseEvent mevent) {
+  float mx = mevent.getX();
+  float my = mevent.getY();
+
+  float barX = buttonWidth + buttonHeight;
+  float barY = height - (3.0/2.0) * buttonHeight;
+  float barW = width - 2 * buttonWidth - buttonHeight;
+  float barH = (2.0/3) * buttonHeight;
+
+  if (mevent.getAction() == MouseEvent.PRESS) {
+    if (my > barY && my < barY + barH && mx > barX && mx < barX + barW) {
+      dragging = true;
+      updateVideo(int(mx));
+    }
+  }
+
+  if (mevent.getAction() == MouseEvent.RELEASE) {
+    dragging = false;
+  }
+
+  if (mevent.getAction() == MouseEvent.DRAG && dragging) {
+    updateVideo(int(mx));
+  }
+}
 
 
 synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_:mediaWindow:247466:
     appc.background(230);
-   FileType displayFileType = currentFile.getFileType();
+    FileType displayFileType = currentFile.getFileType();
     String displayMediaType = getMediaType(displayFileType);
     if (displayMediaType.equals("Video")){
+      videoDisplaying = true;
       if (media1 != null && mediaWindow != null){
-        mediaWindow.image(media1, 0, 0);
+        mediaWindow.image(media1,  (width/2.0) - dim[0]/2.0, height/2.0 - dim[1]/2.0 - (1/2.0)*buttonHeight, dim[0], dim[1]);
+        if(!dragging){
+          currentFile.progress = media1.time()/media1.duration();
+        }
+        mediaWindow.fill(255);
+        mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 
+        mediaWindow.fill(0,255,0);
+        mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight)*currentFile.progress, (2.0/3)*buttonHeight);
       }
     }
     
     if (displayMediaType.equals("Photo")){
       if (media2 != null && mediaWindow != null){
-        mediaWindow.image(media2, 0, 0);
+        mediaWindow.image(media2, (width/2.0) - dim[0]/2.0, height/2.0 - dim[1]/2.0, dim[0], dim[1]);
       }
     }
     
@@ -119,8 +153,7 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
     
     if(displayMediaType.equals("Gif")){
       if(media4 != null && mediaWindow != null){
-        println("h0o");
-        mediaWindow.image(media4, 0,0);
+        mediaWindow.image(media4, (width/2.0) - dim[0]/2.0, height/2.0 - dim[1]/2.0, dim[0], dim[1]);
       }
     }
 } //_CODE_:mediaWindow:247466:

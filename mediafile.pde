@@ -23,12 +23,16 @@ class MediaFile{
     Date date;
     FileType fileType;
     String path;
+    float progress;
+    Boolean paused;
     //CONSTRUCTOR
     MediaFile(String n, Date d, FileType t, String p){
         this.name = n;
         this.date = d;
         this.fileType = t;
         this.path = p;
+        this.progress = 0;
+        this.paused = true;
     }
 
     //METHODS
