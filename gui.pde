@@ -73,6 +73,9 @@ public void nameChange(GTextField source, GEvent event) { //_CODE_:textfield1:32
 public void searchChange(GTextField source, GEvent event) { //_CODE_:textfield1:322137:
   if (event == GEvent.ENTERED || event == GEvent.LOST_FOCUS){
     println(fileSearchingField.getText());
+    currentFolder.setKey(FileSortKey.SEARCH);
+    currentFolder.sort();
+    redraw();
   }
 } //_CODE_:textfield1:322137:
 
