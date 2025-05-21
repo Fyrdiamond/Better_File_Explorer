@@ -168,8 +168,10 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
     
     if(displayMediaType.equals("Audio")){
       if(media3 != null && mediaWindow != null){
+        PImage img = loadImage("audio.png");
+        mediaWindow.image(img, width/2.0 - (2/6.0)*img.width , height/2.0 - (2/6.0)*img.height, (2/3.0)*img.width, (2/3.0)*img.height);
         if(!dragging){
-          fileAsAudio.progress = fileAsAudio.time()/media3.duration();
+        //  fileAsAudio.progress = fileAsAudio.time()/media3.duration();
         }
         mediaWindow.fill(255);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 

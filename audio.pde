@@ -12,8 +12,5 @@ class Audio extends MediaFile {
         this.paused = true;
         this.progress = 0;
         this.timeStarted = millis();
-    } 
-    int time(){
-      return int(this.progress * media3.duration());
-    }
+    }     
 }
