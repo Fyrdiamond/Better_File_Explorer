@@ -1,6 +1,6 @@
 GWindow mediaWindow;
 void changeWindow(){
-    currentFile = currentFolder.getFiles().get(selectedIndex - currentFolder.getFolders().size() - 1);
+    currentFile = currentFolder.getFiles().get(displayIndex - currentFolder.getFolders().size() - 1);
     FileType displayFileType = currentFile.getFileType();
     String displayMediaType = getMediaType(displayFileType);
     String displayFilePath = currentFile.getPath();
@@ -72,6 +72,7 @@ void openSelectedItem(){ // function that will execute when the user presses "op
     if (selectedIndex > 0){
         if (selectedIndex <= currentFolder.getFolders().size()){
             currentFolder = currentFolder.getFolders().get(selectedIndex - 1);
+            
         } else {
           createWindow();
         }
@@ -79,6 +80,7 @@ void openSelectedItem(){ // function that will execute when the user presses "op
     } else {
         currentFolder = currentFolder.getParent();
     }
+    selectedIndex = -1;
 }
 
 void renameSelectedItem(String newText){

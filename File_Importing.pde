@@ -38,7 +38,6 @@ void FileSelected(File chosenFile){ // function that runs once the user selects 
           addFileToCurrentFolder(path, fileName);
           currentFolder.addFile(newFile);
         }       
-
     }
 }
 

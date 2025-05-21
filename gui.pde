@@ -14,18 +14,25 @@
  * =========================================================
  */
 public void previousMediaButtonClicked(GButton source, GEvent event){
-  if (selectedIndex > 1){
-     if (selectedIndex > currentFolder.getFolders().size() + 1){
-        selectedIndex --;
-        changeWindow();
+  if (displayIndex > 1){
+     if (displayIndex > currentFolder.getFolders().size() + 1){
+       if (getMediaType(currentFile.getFileType()).equals("Video")){
+         media1.pause();
+         media1 = null;
+       }
+       displayIndex --;
+       changeWindow();
      }
   }
 }
 
 public void nextMediaButtonClicked(GButton source, GEvent event){
-  print(selectedIndex);
-  if (selectedIndex < currentFolder.getSize()){
-    selectedIndex ++;
+  if (displayIndex < currentFolder.getSize()){
+    if(getMediaType(currentFile.getFileType()).equals("Video")){
+      media1.pause();
+      media1 = null;
+    }
+    displayIndex ++;
     changeWindow();
    }
   } 
