@@ -150,20 +150,19 @@ class Folder {
 
     void rename(String newName) {
         if (this.getParent() != this) {
-            println("Renaming folder " + this.getName() + " to " + newName);
             String name = this.getName();
             Path oldPath = Paths.get(dataPath("") + this.getPath() + File.separator);
             Path newPath = Paths.get(dataPath("") + this.getParent().getPath() + newName + File.separator);
+            if (newPath.toFile().exists()) {
+                return;
+            }
             try {
-                println("Copying " + oldPath + " to " + newPath);
                 Files.copy(oldPath, newPath, StandardCopyOption.REPLACE_EXISTING);
-                println("Copied " + oldPath + " to " + newPath);
                 deleteDir(oldPath.toFile());
-                println("Deleted " + oldPath);
+                this.setName(newName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            this.setName(newName);
         }
     }
 
