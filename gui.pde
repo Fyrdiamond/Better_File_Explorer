@@ -17,8 +17,7 @@ public void previousMediaButtonClicked(GButton source, GEvent event){
   if (displayIndex > 1){
      if (displayIndex > currentFolder.getFolders().size() + 1){
        if (getMediaType(currentFile.getFileType()).equals("Video")){
-         videoDisplaying = false;
-         currentFile.paused = false;
+         fileAsVideo.paused = false;
          media1.pause();
          media1 = null;
        }
@@ -31,24 +30,41 @@ public void previousMediaButtonClicked(GButton source, GEvent event){
 public void nextMediaButtonClicked(GButton source, GEvent event){
   if (displayIndex < currentFolder.getSize()){
     if(getMediaType(currentFile.getFileType()).equals("Video")){
-      videoDisplaying = false;
-      currentFile.paused = false;
+      fileAsVideo.paused = false;
       media1.pause();
       media1 = null;
+    }
+    if(getMediaType(currentFile.getFileType()).equals("Audio")){
+      fileAsAudio.paused = false;
+      media3.pause();
+      media3 = null;
     }
     displayIndex ++;
     changeWindow();
    }
   } 
 public void pausePlayButtonClicked(GButton source, GEvent event){
-  currentFile.paused = !currentFile.paused;
-  if (currentFile.paused){
-    media1.pause();
-    pausePlayButton.setText("Play");
+  if (getMediaType(currentFile.fileType) == ("Video")){
+    fileAsVideo.paused = !fileAsVideo.paused;
+    if (fileAsVideo.paused){
+      media1.pause();
+      pausePlayButton.setText("Play");
+    }
+    else{
+      media1.play();
+      pausePlayButton.setText("Pause");
+    }
   }
-  else{
-    media1.play();
-    pausePlayButton.setText("Pause");
+  if (getMediaType(currentFile.fileType) == ("Audio")){
+    fileAsAudio.paused = !fileAsAudio.paused;
+    if (fileAsAudio.paused){
+      media3.pause();
+      pausePlayButton.setText("Play");
+    }
+    else{
+      media3.play();
+      pausePlayButton.setText("Pause");
+    }
   }
 }
 
