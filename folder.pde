@@ -77,53 +77,41 @@ class Folder {
 
     ArrayList<MediaFile> sort(ArrayList<MediaFile> list) {
         int s = list.size();
-        println(s);
         if (s == 1) return list;
 
         int first = 0;
         int last = s;
         int mid = last >> 1;
 
-        println(mid - first);
-        println(last - mid);
         ArrayList<MediaFile> l1 = new ArrayList<MediaFile>(mid - first);
         ArrayList<MediaFile> l2 = new ArrayList<MediaFile>(last - mid);
 
-        println("Starting merge");
         for (int i = 0; i < mid; i++) {
-            println(i);
             l1.add(i, list.get(i));
         }
 
         for (int i = mid; i < last; i++) {
-            println(i);
             l2.add(i - mid, list.get(i));
         }
-        println(l1.size());
-        println(l2.size());
         
         list = merge(l1, l2);
-        println("------ final list -----");
-        println(list);
         return list;
     }
 
     ArrayList<MediaFile> merge(ArrayList<MediaFile> list1, ArrayList<MediaFile> list2) {
         int size1 = list1.size();
         int size2 = list2.size();
-        println(size1, size2);
+
         ArrayList<MediaFile> resultList = new ArrayList<MediaFile>(size1 + size2);
         int numCombined = 0;
         MediaFile file1 = list1.get(0);
         MediaFile file2 = list2.get(0);
-        println(file1.name, file2.name);
 
         while (size1 > 0 & size2 > 0) {
             if (fileComesBefore(file1, file2)) {
                 resultList.add(numCombined, file1);
                 list1.remove(0);
                 size1--;
-                println(list1.size());
                 if (size1 > 0){
                     file1 = list1.get(0);
                 }
@@ -131,7 +119,6 @@ class Folder {
                 resultList.add(numCombined, file2);
                 list2.remove(0);
                 size2--;
-                println(list2.size());
                 if (size2 > 0){
                     file2 = list2.get(0);
                 }
@@ -139,7 +126,6 @@ class Folder {
             numCombined++;
         }
         
-        println("Starting last two loops");
         while (size1 > 0) {
             resultList.add(file1);
             list1.remove(0);
@@ -162,7 +148,6 @@ class Folder {
     }
 
     boolean fileComesBefore(MediaFile file1, MediaFile file2) {
-        println("fileComesBefore is initiated");
         switch (this.key) {
             case NAME:
                 return file1.getName().compareTo(file2.getName()) == -1;
@@ -172,9 +157,6 @@ class Folder {
                 String searchKey = fileSearchingField.getText();
                 float whatValequals1 = search(file1.getName(), searchKey);
                 float whatValequals2 = search(file2.getName(), searchKey);
-                println(whatValequals1, file1.getName());
-                println(whatValequals2, file2.getName());
-                println(search(file1.getName(), searchKey) > search(file2.getName(), searchKey));
                 return search(file1.getName(), searchKey) > search(file2.getName(), searchKey);
             default:
                 throw new UnsupportedOperationException();
