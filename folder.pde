@@ -93,6 +93,9 @@ class Folder {
         for (int i = mid; i < last; i++) {
             l2.add(i - mid, list.get(i));
         }
+
+        l1 = sort(l1);
+        l2 = sort(l2);
         
         list = merge(l1, l2);
         return list;
@@ -150,9 +153,9 @@ class Folder {
     boolean fileComesBefore(MediaFile file1, MediaFile file2) {
         switch (this.key) {
             case NAME:
-                return !(file1.getName().compareTo(file2.getName()) == 1);
+                return !(file2.getName().compareTo(file1.getName()) == -1);
             case DATE:
-                return !(file1.getDate().compareTo(file2.getDate()) == 1);
+                return !(file2.getDate().compareTo(file1.getDate()) == -1);
             case SEARCH:
                 String searchKey = fileSearchingField.getText();
                 return !(search(file1.getName(), searchKey) < search(file2.getName(), searchKey));
