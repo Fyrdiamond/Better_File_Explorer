@@ -11,7 +11,6 @@ class Video extends MediaFile {
         this.paused = true;
     } 
     void changeVolume(float v){
-      print("yo");
       this.volume = v;
       media1.volume(this.volume);
     }

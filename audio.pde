@@ -13,7 +13,6 @@ class Audio extends MediaFile {
     }     
     
     void changeVolume(float v){
-      print("madeIt");
       this.volume = v;
       media3.amp(this.volume);
     }

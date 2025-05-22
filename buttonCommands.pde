@@ -61,12 +61,12 @@ void createWindow(){  // this function will execute when the user presses "open"
       pausePlayButton.setText("Play");
       pausePlayButton.addEventHandler(this, "pausePlayButtonClicked");
       pausePlayButton.setVisible(false);
-      
+     
       volumeSlider = new GSlider(mediaWindow, width - (1/2) * buttonWidth, height/2.0 + buttonWidth, buttonWidth *2, buttonWidth, buttonHeight*(1/2.0));
       volumeSlider.setRotation(PI/2, GControlMode.CORNER);
       volumeSlider.setLimits(0.5, 0.0, 1.0);
       volumeSlider.setNumberFormat(G4P.DECIMAL, 1);
-      volumeSlider.addEventHandler(this, "volumeChange");
+      volumeSlider.addEventHandler(this, "volumeChanged");
       volumeSlider.setVisible(false);
     }
     changeWindow();
@@ -93,7 +93,9 @@ void openSelectedItem(){ // function that will execute when the user presses "op
             currentFolder = currentFolder.getFolders().get(selectedIndex - 1);
             
         } else {
-          createWindow();
+          if (mediaWindow == null){
+            createWindow();
+          }
         }
         
     } else {
@@ -168,7 +170,7 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
         }
         mediaWindow.fill(255);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 
-        mediaWindow.fill(0,255,0);
+        mediaWindow.fill(0,100,100);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight)*fileAsVideo.progress, (2.0/3)*buttonHeight);
       }
     }
@@ -188,7 +190,7 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
         }
         mediaWindow.fill(255);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 
-        mediaWindow.fill(0,255,0);
+        mediaWindow.fill(0,100,100);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight)*fileAsAudio.progress, (2.0/3)*buttonHeight);
       }
     }
