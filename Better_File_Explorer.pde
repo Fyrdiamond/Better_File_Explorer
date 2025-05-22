@@ -200,10 +200,7 @@ void drawCurrentFolder() {
         rect(buttonWidth * 2, selectedIndex * buttonHeight + toolbarHeight, width - buttonWidth * 2, buttonHeight);
     }
 }
-{
-  
-  
-}
+
 void mousePressed(){
     // Get the selected file or folder if the mouse is within the display area for files and folders
     if (mouseX > 2 * buttonWidth && mouseY > toolbarHeight && mouseY < buttonHeight * (currentFolder.getSize() + 1) + toolbarHeight) {
