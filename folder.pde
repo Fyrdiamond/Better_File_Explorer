@@ -180,7 +180,11 @@ class Folder {
         // Compares two files based on the current sort key
         switch (this.key) {
             case NAME:
-                return !(file2.getName().compareTo(file1.getName()) == -1);
+                for (int i = 0; i < Math.min(file1.getName().length(), file2.getName().length()); i++) {
+                    if (file1.getName().charAt(i) != file2.getName().charAt(i)) {
+                        return file1.getName().charAt(i) < file2.getName().charAt(i);
+                    }
+                }
             case DATE:
                 return !(file2.getDate().compareTo(file1.getDate()) == -1);
             case SEARCH:
