@@ -117,28 +117,35 @@ void renameSelectedItem(String newText){
     }
 }
 public void mediaWindowMouse(PApplet appc, GWinData data, MouseEvent mevent) {
+  //Setting the mouse coordinates to varibles to be used easier later
   float mx = mevent.getX();
   float my = mevent.getY();
+  
+  //Seeting the restrictions based on the dimensions the scroll bar
   float barX = buttonWidth + buttonHeight;
   float barY = height - (3.0/2.0) * buttonHeight;
   float barW = width - 2 * buttonWidth - buttonHeight;
   float barH = (2.0/3) * buttonHeight;
+  
+  //Playback Bar controls for video 
   if (getMediaType(currentFile.fileType) == "Video"){
-    if (mevent.getAction() == MouseEvent.PRESS) {
+    if (mevent.getAction() == MouseEvent.PRESS) {//Updatevideo when pressed
       if (my > barY && my < barY + barH && mx > barX && mx < barX + barW) {
-        dragging = true;
+        dragging = true; 
         updateVideo(int(mx));
       }
     }
 
-    if (mevent.getAction() == MouseEvent.RELEASE) {
+    if (mevent.getAction() == MouseEvent.RELEASE) {//dragging to false
       dragging = false;
     }
 
-    if (mevent.getAction() == MouseEvent.DRAG && dragging) {
+    if (mevent.getAction() == MouseEvent.DRAG && dragging) {//updateVideo when dragged
       updateVideo(int(mx));
     }
   }
+  
+  //Playback Bar controls for audio (only diffence is the other one leads to updateVideo while this leads to updateAudio)
   if (getMediaType(currentFile.fileType) == "Audio"){
     if (mevent.getAction() == MouseEvent.PRESS) {
       if (my > barY && my < barY + barH && mx > barX && mx < barX + barW) {
@@ -168,8 +175,12 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
         if(!dragging){
           fileAsVideo.progress = media1.time()/media1.duration();
         }
+        
+        //Playback bar background 
         mediaWindow.fill(255);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 
+        
+        //moving part of playback bar
         mediaWindow.fill(0,100,100);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight)*fileAsVideo.progress, (2.0/3)*buttonHeight);
       }
@@ -188,8 +199,11 @@ synchronized public void mediaWindowOpen(PApplet appc, GWinData data) { //_CODE_
         if(!dragging){
           fileAsAudio.progress = media3.position()/media3.duration();
         }
+        
+        //Playback bar
         mediaWindow.fill(255);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight), (2.0/3)*buttonHeight); 
+        //Moving part of bar
         mediaWindow.fill(0,100,100);
         mediaWindow.rect(buttonWidth + buttonHeight, height - (3/2.0)*buttonHeight, (width - 2*buttonWidth - buttonHeight)*fileAsAudio.progress, (2.0/3)*buttonHeight);
       }
@@ -206,8 +220,8 @@ public void resetMedia(GWindow window) { //_CODE_:mediaWindow:917051:
     FileType displayFileType = currentFile.getFileType();
     String displayMediaType = getMediaType(displayFileType);
     if (displayMediaType.equals("Video")){
-       media1.pause();
-       media1 = null;
+       media1.pause(); // pausing so sound stops
+       media1 = null; 
     }
     
     if (displayMediaType.equals("Photos")){
@@ -215,7 +229,7 @@ public void resetMedia(GWindow window) { //_CODE_:mediaWindow:917051:
     }
     
     if(displayMediaType.equals("Audio")){
-      media3.pause();
+      media3.pause(); //pausing so sound stops
       media3 = null;
     }
     

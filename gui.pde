@@ -14,6 +14,7 @@
  * =========================================================
  */
 public void volumeChanged(GSlider source, GEvent event){
+  //Because the bar is turn 90 degrees when you go up it lowers the value when you go down it lowers so the value is minused to inverse this affect
   if (getMediaType(currentFile.getFileType()).equals("Video")){
     fileAsVideo.changeVolume(1- volumeSlider.getValueF());
   }
@@ -22,9 +23,9 @@ public void volumeChanged(GSlider source, GEvent event){
   }
 }
 
-public void previousMediaButtonClicked(GButton source, GEvent event){
+public void previousMediaButtonClicked(GButton source, GEvent event){ //Before switching if the currentFile is a video or audio its media variable is paused and set to null
   if (displayIndex > 1){
-     if (displayIndex > currentFolder.getFolders().size() + 1){
+     if (displayIndex > currentFolder.getFolders().size() + 1){//Folders come first in line and view folders in the media display they get skipped.
        if (getMediaType(currentFile.getFileType()).equals("Video")){
          fileAsVideo.paused = false;
          media1.pause();
@@ -37,13 +38,13 @@ public void previousMediaButtonClicked(GButton source, GEvent event){
        }
        volumeSlider.setVisible(false);
        pausePlayButton.setVisible(false);
-       displayIndex --;
-       changeWindow();
+       displayIndex --; //moves file back unless its the very first file in the folder
+       changeWindow(); 
      }
   }
 }
 
-public void nextMediaButtonClicked(GButton source, GEvent event){
+public void nextMediaButtonClicked(GButton source, GEvent event){ //Before switching if the currentFile is a video or audio its media variable is paused and set to null
   if (displayIndex < currentFolder.getSize()){
     if(getMediaType(currentFile.getFileType()).equals("Video")){
       fileAsVideo.paused = false;
@@ -55,20 +56,22 @@ public void nextMediaButtonClicked(GButton source, GEvent event){
       media3.pause();
       media3 = null;
     }
+    //Make these disapear (they will reappear if there is a video or audio)
     volumeSlider.setVisible(false);
     pausePlayButton.setVisible(false);
-    displayIndex ++;
+    
+    displayIndex ++; // moves up a file unless its the last one in the folder
     changeWindow();
    }
   } 
 public void pausePlayButtonClicked(GButton source, GEvent event){
   if (getMediaType(currentFile.fileType) == ("Video")){
-    fileAsVideo.paused = !fileAsVideo.paused;
-    if (fileAsVideo.paused){
+    fileAsVideo.paused = !fileAsVideo.paused; // takes the negative of what the paused feild is for the video file
+    if (fileAsVideo.paused){ // if its true it pauses the file
       media1.pause();
       pausePlayButton.setText("Play");
     }
-    else{
+    else{ //plays file 
       media1.play();
       pausePlayButton.setText("Pause");
     }
@@ -91,7 +94,30 @@ public void importFileClicked(GButton source, GEvent event) { //_CODE_:importFil
 } //_CODE_:importFileButton:738052:
 
 public void createNewFolderClicked(GButton source, GEvent event) { //_CODE_:NewFolder:822673:
-  String n = "New Folder" + (currentFolder.getFolders().size() + 1);
+  //checking for the lowest NewFolder# name that isn't used and names the new folder that name
+  Boolean checking = true;
+  int i = 1; 
+  String n = "";
+  if (currentFolder.getFolders().size() >0){
+    i = 0;
+    while (i <= currentFolder.getFolders().size() && checking){
+      i ++;
+      n = "New Folder" + (i);
+      boolean nameInList = false;
+      for (Folder f : currentFolder.getFolders()){
+        if (n.equals(f.getName())){
+          nameInList = true;
+        }
+      }
+      if (!nameInList){
+        checking = false;
+      }
+    }
+  }
+  else {
+    n = "New Folder1";
+  }
+  
   currentFolder.addFolder(n);
 } //_CODE_:NewFolder:822673:
 

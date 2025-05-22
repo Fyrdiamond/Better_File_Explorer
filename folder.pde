@@ -15,7 +15,6 @@ class Folder {
 
     // Key used when sorting files
     private FileSortKey key;
-
     Folder(String name) {
         // Constructor for if folder doesn't have a parent
         this.parent = this;
