@@ -3,13 +3,16 @@ class Video extends MediaFile {
     boolean paused;
     float volume;
     float progress = 0;
-    Movie file;
 
     //CONSTUCTOR
     Video(String n, Date d, FileType t, String p){
         super(n,  d,  t, p);
-        this.volume = 100;
+        this.volume = .5;
         this.paused = true;
-
     } 
+    void changeVolume(float v){
+      print("yo");
+      this.volume = v;
+      media1.volume(this.volume);
+    }
 }

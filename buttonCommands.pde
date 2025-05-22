@@ -7,6 +7,8 @@ void changeWindow(){
     
     if (displayMediaType.equals("Video")){
       fileAsVideo = (Video)currentFile;
+      volumeSlider.setValue(0.5);
+      volumeSlider.setVisible(true);
       pausePlayButton.setVisible(true);
       media1 = new Movie(this, displayFilePath);
       media1.loop();
@@ -21,6 +23,8 @@ void changeWindow(){
     
     if (displayMediaType.equals("Audio")){
       fileAsAudio = (Audio)currentFile;
+      volumeSlider.setValue(0.5);
+      volumeSlider.setVisible(true);
       pausePlayButton.setVisible(true);
       media3 = new SoundFile(this, displayFilePath);
       media3.loop();
@@ -57,6 +61,13 @@ void createWindow(){  // this function will execute when the user presses "open"
       pausePlayButton.setText("Play");
       pausePlayButton.addEventHandler(this, "pausePlayButtonClicked");
       pausePlayButton.setVisible(false);
+      
+      volumeSlider = new GSlider(mediaWindow, width - (1/2) * buttonWidth, height/2.0 + buttonWidth, buttonWidth *2, buttonWidth, buttonHeight*(1/2.0));
+      volumeSlider.setRotation(PI/2, GControlMode.CORNER);
+      volumeSlider.setLimits(0.5, 0.0, 1.0);
+      volumeSlider.setNumberFormat(G4P.DECIMAL, 1);
+      volumeSlider.addEventHandler(this, "volumeChange");
+      volumeSlider.setVisible(false);
     }
     changeWindow();
 }

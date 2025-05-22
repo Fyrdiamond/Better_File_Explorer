@@ -24,7 +24,9 @@ SoundFile media3;
 Gif media4;
 int[] dim;
 boolean dragging = false;
+
 GButton pausePlayButton;
+
 
 int buttonHeight = 30;
 int buttonWidth = 80;
@@ -37,12 +39,18 @@ void updateVideo(float mx){
   if (mediaWindow != null){
     fileAsVideo.progress = constrain((mx -(buttonWidth + buttonHeight))/(width - 2*buttonWidth - buttonHeight), 0, 1);
     media1.jump(fileAsVideo.progress*media1.duration());
+    if (fileAsVideo.paused){
+      media1.pause();
+    }
   }
 }
 void updateAudio(float mx){
   if (mediaWindow != null){
     fileAsAudio.progress = constrain((mx -(buttonWidth + buttonHeight))/(width - 2*buttonWidth - buttonHeight), 0, 1);
     media3.jump(fileAsAudio.progress*media3.duration());
+    if (fileAsAudio.paused){
+      media3.pause();
+    }
   }
 }
 
